@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - FinSync</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="img/favicon.png">
+</head>
+<body style="background-color: var(--bg-light);">
+  <div style="min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: var(--space-lg);">
+    <div class="card" style="width: 100%; max-width: 450px; text-align: center; padding: var(--space-xl);">
+      <a href="index.html" style="display: inline-block; margin-bottom: var(--space-xl);">
+        <span style="font-size: 2rem; font-weight: 700; color: var(--primary);">Fin</span><span style="font-size: 2rem; font-weight: 700; color: var(--accent);">Sync</span>
+      </a>
+      
+      <h1 style="font-size: 1.5rem; margin-bottom: var(--space-lg); font-weight: 600;">Welcome Back!</h1>
+      
+      <!-- Login Form -->
+      <form action="chat.html" class="needs-validation" style="text-align: left;">
+        <div class="form-group">
+          <label for="email" class="form-label">Email Address</label>
+          <input type="email" id="email" class="form-control" placeholder="you@example.com" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="password" class="form-label">Password</label>
+          <div style="position: relative;">
+            <input type="password" id="password" class="form-control" placeholder="••••••••" required>
+            <button type="button" class="password-toggle" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: var(--text-light);">
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+        </div>
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-lg);">
+          <div>
+            <input type="checkbox" id="remember" style="margin-right: var(--space-sm);">
+            <label for="remember" style="color: var(--text-secondary); font-size: 0.875rem;">Remember me</label>
+          </div>
+          <a href="forgot-password.html" style="font-size: 0.875rem;">Forgot password?</a>
+        </div>
+        
+        <button type="submit" class="btn btn-primary" style="width: 100%; margin-bottom: var(--space-lg);">Log In</button>
+      </form>
+      
+      <!-- Social Login -->
+      <div style="margin-bottom: var(--space-lg);">
+        <div style="display: flex; align-items: center; margin-bottom: var(--space-md);">
+          <div style="height: 1px; background-color: var(--border-light); flex: 1;"></div>
+          <span style="padding: 0 var(--space-md); color: var(--text-light); font-size: 0.875rem;">OR</span>
+          <div style="height: 1px; background-color: var(--border-light); flex: 1;"></div>
+        </div>
+        
+        <button class="btn btn-outline" style="width: 100%; display: flex; align-items: center; justify-content: center; margin-bottom: var(--space-md);">
+          <img src="img/google-logo.svg" alt="Google" style="width: 18px; height: 18px; margin-right: var(--space-md);">
+          Log in with Google
+        </button>
+      </div>
+      
+      <p style="font-size: 0.875rem; color: var(--text-secondary);">
+        Don't have an account? <a href="signup.html">Sign up</a>
+      </p>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html> 

@@ -1,0 +1,20 @@
+{
+    "name": "Django Finance App Dev",
+    "build": {
+      "dockerfile": "../Dockerfile.dev",
+      "context": "../"
+    },
+    "forwardPorts": [8000],
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "terminal.integrated.defaultProfile.linux": "bash"
+            }
+        },
+        "extensions": [
+          "ms-python.python",
+          "ms-azuretools.vscode-docker"
+        ]
+    },
+    "postCreateCommand": "pip install --upgrade pip && pip install -r requirements.txt"
+  }

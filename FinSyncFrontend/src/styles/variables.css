@@ -1,0 +1,67 @@
+:root {
+  /* Main colors */
+  --finsync-primary: 210 100% 50%; /* Blue */
+  --finsync-primary-light: 210 100% 60%;
+  --finsync-primary-dark: 210 100% 40%;
+  
+  --finsync-secondary: 280 100% 50%; /* Purple */
+  --finsync-secondary-light: 280 100% 60%;
+  --finsync-secondary-dark: 280 100% 40%;
+  
+  --finsync-accent: 135 80% 50%; /* Green */
+  --finsync-accent-light: 135 80% 60%;
+  --finsync-accent-dark: 135 80% 40%;
+  
+  /* Neutral colors */
+  --finsync-background: 220 20% 97%;
+  --finsync-foreground: 220 20% 15%;
+  --finsync-muted: 220 20% 90%;
+  --finsync-muted-foreground: 220 10% 40%;
+  
+  /* Semantic colors */
+  --finsync-success: 135 80% 50%;
+  --finsync-warning: 40 100% 50%;
+  --finsync-error: 0 100% 50%;
+  --finsync-info: 210 100% 50%;
+
+  /* Border radius */
+  --finsync-radius-sm: 0.25rem; /* 4px */
+  --finsync-radius-md: 0.5rem;  /* 8px */
+  --finsync-radius-lg: 1rem;    /* 16px */
+  
+  /* Spacing */
+  --finsync-space-1: 0.25rem;  /* 4px */
+  --finsync-space-2: 0.5rem;   /* 8px */
+  --finsync-space-3: 0.75rem;  /* 12px */
+  --finsync-space-4: 1rem;     /* 16px */
+  --finsync-space-5: 1.25rem;  /* 20px */
+  --finsync-space-6: 1.5rem;   /* 24px */
+  --finsync-space-8: 2rem;     /* 32px */
+  --finsync-space-10: 2.5rem;  /* 40px */
+  --finsync-space-12: 3rem;    /* 48px */
+  --finsync-space-16: 4rem;    /* 64px */
+  
+  /* Typography */
+  --finsync-font-sans: 'Inter', system-ui, sans-serif;
+  --finsync-font-mono: 'JetBrains Mono', monospace;
+  
+  /* Font sizes */
+  --finsync-font-xs: 0.75rem;   /* 12px */
+  --finsync-font-sm: 0.875rem;  /* 14px */
+  --finsync-font-base: 1rem;    /* 16px */
+  --finsync-font-lg: 1.125rem;  /* 18px */
+  --finsync-font-xl: 1.25rem;   /* 20px */
+  --finsync-font-2xl: 1.5rem;   /* 24px */
+  --finsync-font-3xl: 1.875rem; /* 30px */
+  --finsync-font-4xl: 2.25rem;  /* 36px */
+  
+  /* Shadows */
+  --finsync-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --finsync-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --finsync-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  
+  /* Transitions */
+  --finsync-transition-fast: 150ms;
+  --finsync-transition-normal: 250ms;
+  --finsync-transition-slow: 350ms;
+} 

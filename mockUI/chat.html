@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat - FinSync</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="img/favicon.png">
+  <style>
+    .chat-container {
+      background-color: var(--bg-white);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    
+    .chat-history {
+      width: 280px;
+      background-color: var(--bg-light);
+      border-right: 1px solid var(--border-light);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .chat-history-header {
+      padding: var(--space-md);
+      border-bottom: 1px solid var(--border-light);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .chat-history-item {
+      padding: var(--space-md);
+      border-bottom: 1px solid var(--border-light);
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    
+    .chat-history-item:hover, .chat-history-item.active {
+      background-color: rgba(67, 97, 238, 0.05);
+    }
+    
+    .chat-history-item-title {
+      font-weight: 500;
+      margin-bottom: var(--space-xs);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    .chat-history-item-preview {
+      font-size: 0.875rem;
+      color: var(--text-light);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    .main-container {
+      display: flex;
+      height: 100vh;
+    }
+    
+    .settings-dropdown {
+      position: absolute;
+      top: 60px;
+      right: 20px;
+      background-color: var(--bg-white);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-lg);
+      min-width: 200px;
+      z-index: 1000;
+      display: none;
+    }
+    
+    .settings-dropdown.show {
+      display: block;
+    }
+    
+    .settings-dropdown-item {
+      padding: var(--space-md);
+      display: flex;
+      align-items: center;
+      color: var(--text-primary);
+      transition: background-color 0.2s;
+    }
+    
+    .settings-dropdown-item:hover {
+      background-color: rgba(67, 97, 238, 0.05);
+    }
+    
+    .settings-dropdown-icon {
+      margin-right: var(--space-md);
+      color: var(--text-light);
+      width: 20px;
+      text-align: center;
+    }
+    
+    .suggestion-chip {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background-color: rgba(67, 97, 238, 0.1);
+      color: var(--primary);
+      border-radius: var(--radius-full);
+      margin-right: var(--space-sm);
+      margin-bottom: var(--space-sm);
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    
+    .suggestion-chip:hover {
+      background-color: rgba(67, 97, 238, 0.2);
+    }
+    
+    .typing-indicator {
+      display: flex;
+      align-items: center;
+      margin-top: var(--space-sm);
+    }
+    
+    .typing-indicator span {
+      height: 8px;
+      width: 8px;
+      margin: 0 1px;
+      background-color: var(--text-light);
+      border-radius: 50%;
+      display: inline-block;
+      opacity: 0.4;
+    }
+    
+    .typing-indicator span:nth-child(1) {
+      animation: pulse 1s infinite;
+    }
+    
+    .typing-indicator span:nth-child(2) {
+      animation: pulse 1s infinite 0.2s;
+    }
+    
+    .typing-indicator span:nth-child(3) {
+      animation: pulse 1s infinite 0.4s;
+    }
+    
+    .new-chat-btn {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: var(--space-sm) var(--space-md);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      font-size: 0.875rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s;
+    }
+    
+    .new-chat-btn:hover {
+      background-color: var(--primary-dark);
+    }
+    
+    .chart-container {
+      background-color: var(--bg-white);
+      border-radius: var(--radius-md);
+      padding: var(--space-md);
+      margin-top: var(--space-md);
+    }
+    
+    @keyframes pulse {
+      0% {
+        opacity: 0.4;
+        transform: scale(1);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.2);
+      }
+      100% {
+        opacity: 0.4;
+        transform: scale(1);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="main-container">
+    <!-- Chat History Sidebar -->
+    <div class="chat-history">
+      <div class="chat-history-header">
+        <div>
+          <span style="font-size: 1.25rem; font-weight: 700; color: var(--primary);">Fin</span><span style="font-size: 1.25rem; font-weight: 700; color: var(--accent);">Sync</span>
+        </div>
+        <button class="new-chat-btn">
+          <i class="fas fa-plus" style="margin-right: var(--space-xs);"></i> New
+        </button>
+      </div>
+      
+      <!-- Chat History List -->
+      <div class="chat-history-item active">
+        <div class="chat-history-item-title">Q2 2023 Revenue Analysis</div>
+        <div class="chat-history-item-preview">What was our total revenue for Q2...</div>
+      </div>
+      
+      <div class="chat-history-item">
+        <div class="chat-history-item-title">Top Expenses Report</div>
+        <div class="chat-history-item-preview">Show me our biggest expenses...</div>
+      </div>
+      
+      <div class="chat-history-item">
+        <div class="chat-history-item-title">Cash Flow Projection</div>
+        <div class="chat-history-item-preview">What's our projected cash flow...</div>
+      </div>
+      
+      <div class="chat-history-item">
+        <div class="chat-history-item-title">Accounts Receivable</div>
+        <div class="chat-history-item-preview">List all outstanding invoices...</div>
+      </div>
+      
+      <div class="chat-history-item">
+        <div class="chat-history-item-title">Marketing ROI</div>
+        <div class="chat-history-item-preview">Calculate the ROI for our marketing...</div>
+      </div>
+    </div>
+    
+    <!-- Main Chat Container -->
+    <div class="chat-container">
+      <div class="chat-header">
+        <h1 style="font-size: 1.25rem; font-weight: 600; margin: 0;">Q2 2023 Revenue Analysis</h1>
+        
+        <div style="display: flex; align-items: center;">
+          <button class="btn btn-outline btn-sm" style="margin-right: var(--space-sm);">
+            <i class="fas fa-file-export" style="margin-right: var(--space-xs);"></i> Export
+          </button>
+          <button class="btn btn-outline btn-sm" style="margin-right: var(--space-lg);">
+            <i class="fas fa-trash" style="margin-right: var(--space-xs);"></i> Clear
+          </button>
+          <div style="position: relative;">
+            <button id="settingsBtn" class="btn btn-outline btn-sm" style="width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; padding: 0;">
+              <i class="fas fa-cog"></i>
+            </button>
+            
+            <!-- Settings Dropdown -->
+            <div id="settingsDropdown" class="settings-dropdown">
+              <a href="account-settings.html" class="settings-dropdown-item">
+                <i class="fas fa-user settings-dropdown-icon"></i>
+                Account Settings
+              </a>
+              <a href="organization.html" class="settings-dropdown-item">
+                <i class="fas fa-building settings-dropdown-icon"></i>
+                Organization
+              </a>
+              <a href="integrations.html" class="settings-dropdown-item">
+                <i class="fas fa-plug settings-dropdown-icon"></i>
+                Integrations
+              </a>
+              <a href="billing.html" class="settings-dropdown-item">
+                <i class="fas fa-credit-card settings-dropdown-icon"></i>
+                Billing
+              </a>
+              <div style="border-top: 1px solid var(--border-light);"></div>
+              <a href="index.html" class="settings-dropdown-item">
+                <i class="fas fa-sign-out-alt settings-dropdown-icon"></i>
+                Logout
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="chat-messages" style="padding: var(--space-lg); flex: 1; overflow-y: auto;">
+        <!-- Welcome Message -->
+        <div class="message message-ai">
+          <p style="margin: 0 0 var(--space-sm);"><strong>Welcome to FinSync!</strong> I'm your financial assistant.</p>
+          <p style="margin: 0;">Ask me anything about your financial data from Zoho Books. Try questions like:</p>
+          
+          <div style="margin-top: var(--space-md);">
+            <div class="suggestion-chip">What was my revenue last month?</div>
+            <div class="suggestion-chip">Show my top 5 expenses this quarter</div>
+            <div class="suggestion-chip">What's my current cash balance?</div>
+            <div class="suggestion-chip">Compare profit margin year-over-year</div>
+            <div class="suggestion-chip">What's my runway at current burn rate?</div>
+          </div>
+        </div>
+        
+        <!-- Example Conversation -->
+        <div class="message message-user">
+          What was our total revenue for Q2 2023?
+        </div>
+        
+        <div class="message message-ai">
+          <p style="margin: 0 0 var(--space-md);"><strong>Your total revenue for Q2 2023 (Apr-Jun) was $152,750</strong></p>
+          <p style="margin: 0 0 var(--space-md);">This is a 15% increase from Q1 2023, and a 22% increase from Q2 2022.</p>
+          
+          <div class="chart-container">
+            <img src="img/revenue-chart.svg" alt="Revenue Chart" style="width: 100%; max-width: 500px;">
+          </div>
+          
+          <div style="margin-top: var(--space-md); font-size: 0.875rem; color: var(--text-light);">
+            Data sourced from Zoho Books accounts: Sales, Consulting Revenue, Product Revenue
+          </div>
+        </div>
+        
+        <div class="message message-user">
+          What were our biggest expenses in the same period?
+        </div>
+        
+        <div class="message message-ai">
+          <p style="margin: 0 0 var(--space-md);"><strong>Your top 5 expenses for Q2 2023 were:</strong></p>
+          
+          <ol style="margin: 0 0 var(--space-md); padding-left: 1.5rem;">
+            <li style="margin-bottom: var(--space-sm);"><strong>Salaries & Wages:</strong> $65,200 (42% of total expenses)</li>
+            <li style="margin-bottom: var(--space-sm);"><strong>Marketing & Advertising:</strong> $24,750 (16% of total expenses)</li>
+            <li style="margin-bottom: var(--space-sm);"><strong>Office Rent:</strong> $18,000 (12% of total expenses)</li>
+            <li style="margin-bottom: var(--space-sm);"><strong>Software Subscriptions:</strong> $12,360 (8% of total expenses)</li>
+            <li style="margin-bottom: var(--space-sm);"><strong>Professional Services:</strong> $9,800 (6% of total expenses)</li>
+          </ol>
+          
+          <div class="chart-container">
+            <img src="img/expenses-chart.svg" alt="Expenses Chart" style="width: 100%; max-width: 500px;">
+          </div>
+          
+          <div style="margin-top: var(--space-md); font-size: 0.875rem; color: var(--text-light);">
+            Data sourced from Zoho Books expense categories
+          </div>
+        </div>
+      </div>
+      
+      <div class="chat-input" style="padding: var(--space-lg); border-top: 1px solid var(--border-light);">
+        <form class="chat-form" style="display: flex; width: 100%;">
+          <input type="text" class="chat-input-field" placeholder="Ask a question about your finances..." autofocus>
+          <button type="submit" class="btn btn-primary">
+            <i class="fas fa-paper-plane"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Make suggestion chips clickable
+      const suggestionChips = document.querySelectorAll('.suggestion-chip');
+      const chatInput = document.querySelector('.chat-input-field');
+      
+      suggestionChips.forEach(chip => {
+        chip.addEventListener('click', () => {
+          chatInput.value = chip.textContent;
+          chatInput.focus();
+        });
+      });
+      
+      // Settings dropdown functionality
+      const settingsBtn = document.getElementById('settingsBtn');
+      const settingsDropdown = document.getElementById('settingsDropdown');
+      
+      settingsBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        settingsDropdown.classList.toggle('show');
+      });
+      
+      // Close dropdown when clicking elsewhere
+      document.addEventListener('click', (e) => {
+        if (settingsDropdown.classList.contains('show') && !settingsBtn.contains(e.target)) {
+          settingsDropdown.classList.remove('show');
+        }
+      });
+      
+      // New chat button functionality
+      const newChatBtn = document.querySelector('.new-chat-btn');
+      
+      newChatBtn.addEventListener('click', () => {
+        // Clear current chat messages
+        const chatMessages = document.querySelector('.chat-messages');
+        
+        // Keep only the welcome message
+        chatMessages.innerHTML = `
+          <div class="message message-ai">
+            <p style="margin: 0 0 var(--space-sm);"><strong>Welcome to FinSync!</strong> I'm your financial assistant.</p>
+            <p style="margin: 0;">Ask me anything about your financial data from Zoho Books. Try questions like:</p>
+            
+            <div style="margin-top: var(--space-md);">
+              <div class="suggestion-chip">What was my revenue last month?</div>
+              <div class="suggestion-chip">Show my top 5 expenses this quarter</div>
+              <div class="suggestion-chip">What's my current cash balance?</div>
+              <div class="suggestion-chip">Compare profit margin year-over-year</div>
+              <div class="suggestion-chip">What's my runway at current burn rate?</div>
+            </div>
+          </div>
+        `;
+        
+        // Update chat title
+        document.querySelector('.chat-header h1').textContent = 'New Chat';
+        
+        // Update active chat in history
+        const chatHistoryItems = document.querySelectorAll('.chat-history-item');
+        chatHistoryItems.forEach(item => item.classList.remove('active'));
+        
+        // Make suggestion chips clickable again
+        const newSuggestionChips = document.querySelectorAll('.suggestion-chip');
+        newSuggestionChips.forEach(chip => {
+          chip.addEventListener('click', () => {
+            chatInput.value = chip.textContent;
+            chatInput.focus();
+          });
+        });
+      });
+      
+      // Chat history item click functionality
+      const chatHistoryItems = document.querySelectorAll('.chat-history-item');
+      
+      chatHistoryItems.forEach(item => {
+        item.addEventListener('click', () => {
+          // Remove active class from all items
+          chatHistoryItems.forEach(i => i.classList.remove('active'));
+          
+          // Add active class to clicked item
+          item.classList.add('active');
+          
+          // Update chat title
+          document.querySelector('.chat-header h1').textContent = item.querySelector('.chat-history-item-title').textContent;
+        });
+      });
+    });
+  </script>
+</body>
+</html> 

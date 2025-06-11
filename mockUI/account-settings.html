@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Account Settings - FinSync</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="img/favicon.png">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+        <a href="chat.html">
+          <span style="font-size: 1.5rem; font-weight: 700; color: var(--primary);">Fin</span><span style="font-size: 1.5rem; font-weight: 700; color: var(--accent);">Sync</span>
+        </a>
+      </div>
+      
+      <nav class="sidebar-nav">
+        <a href="chat.html" class="sidebar-nav-item">
+          <i class="fas fa-comments sidebar-nav-icon"></i>
+          <span>Chat</span>
+        </a>
+        <a href="integrations.html" class="sidebar-nav-item">
+          <i class="fas fa-plug sidebar-nav-icon"></i>
+          <span>Integrations</span>
+        </a>
+        <a href="organization.html" class="sidebar-nav-item">
+          <i class="fas fa-building sidebar-nav-icon"></i>
+          <span>Organization</span>
+        </a>
+        <a href="billing.html" class="sidebar-nav-item">
+          <i class="fas fa-credit-card sidebar-nav-icon"></i>
+          <span>Billing</span>
+        </a>
+      </nav>
+      
+      <div class="sidebar-footer">
+        <a href="account-settings.html" class="sidebar-nav-item active">
+          <i class="fas fa-cog sidebar-nav-icon"></i>
+          <span>Settings</span>
+        </a>
+        <a href="index.html" class="sidebar-nav-item">
+          <i class="fas fa-sign-out-alt sidebar-nav-icon"></i>
+          <span>Logout</span>
+        </a>
+      </div>
+    </aside>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+      <div style="max-width: 800px; margin: 0 auto;">
+        <h1 style="font-size: 1.75rem; font-weight: 600; margin-bottom: var(--space-lg);">Account Settings</h1>
+        
+        <!-- Settings Tabs -->
+        <div style="margin-bottom: var(--space-xl); border-bottom: 1px solid var(--border-light);">
+          <div style="display: flex;">
+            <a href="#profile" class="active-tab" style="padding: var(--space-md) var(--space-lg); border-bottom: 2px solid var(--primary); color: var(--primary); font-weight: 500;">Profile</a>
+            <a href="#password" style="padding: var(--space-md) var(--space-lg); color: var(--text-secondary);">Password</a>
+            <a href="#connections" style="padding: var(--space-md) var(--space-lg); color: var(--text-secondary);">Connections</a>
+          </div>
+        </div>
+        
+        <div class="tab-content">
+          <!-- Profile Section -->
+          <div class="tab-pane active" id="profile-tab">
+            <h2 class="section-title">Profile Information</h2>
+            
+            <form class="profile-form">
+              <div class="row">
+                <div class="col" style="flex: 1; min-width: 250px;">
+                  <div class="form-group">
+                    <label for="firstName" class="form-label">First Name</label>
+                    <input type="text" id="firstName" class="form-control" value="John">
+                  </div>
+                </div>
+                
+                <div class="col" style="flex: 1; min-width: 250px;">
+                  <div class="form-group">
+                    <label for="lastName" class="form-label">Last Name</label>
+                    <input type="text" id="lastName" class="form-control" value="Doe">
+                  </div>
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" id="email" class="form-control" value="john.doe@example.com" disabled>
+                <p class="form-text">Your email address cannot be changed.</p>
+              </div>
+              
+              <div class="form-group">
+                <label for="jobTitle" class="form-label">Job Title</label>
+                <input type="text" id="jobTitle" class="form-control" value="Founder & CEO">
+              </div>
+              
+              <div class="form-group">
+                <label for="timezone" class="form-label">Timezone</label>
+                <select id="timezone" class="form-control">
+                  <option value="America/New_York" selected>Eastern Time (US & Canada)</option>
+                  <option value="America/Chicago">Central Time (US & Canada)</option>
+                  <option value="America/Denver">Mountain Time (US & Canada)</option>
+                  <option value="America/Los_Angeles">Pacific Time (US & Canada)</option>
+                  <option value="Europe/London">London</option>
+                  <option value="Europe/Paris">Paris</option>
+                  <option value="Asia/Tokyo">Tokyo</option>
+                </select>
+              </div>
+              
+              <div>
+                <button type="button" onclick="saveProfile()" class="btn btn-primary save-profile-btn">Save Changes</button>
+              </div>
+            </form>
+            
+            <!-- Organization Status - shown for individual accounts -->
+            <div id="individualAccountSection" style="margin-top: var(--space-xxl); border-top: 1px solid var(--border-light); padding-top: var(--space-xl);">
+              <h2 class="section-title">Organization Membership</h2>
+              
+              <div class="card" style="padding: var(--space-lg); margin-bottom: var(--space-lg);">
+                <div style="display: flex; align-items: flex-start; justify-content: space-between;">
+                  <div>
+                    <h3 style="font-size: 1.125rem; font-weight: 600; margin-bottom: var(--space-sm);">You're using a personal workspace</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: var(--space-md);">
+                      You're currently using FinSync as an individual. Join an organization to collaborate with your team.
+                    </p>
+                  </div>
+                  <span style="display: inline-block; background-color: rgba(101, 116, 139, 0.1); color: var(--text-light); padding: 0.25rem 0.75rem; border-radius: var(--radius-full); font-size: 0.875rem; font-weight: 500;">
+                    Individual Account
+                  </span>
+                </div>
+                
+                <div style="margin-top: var(--space-lg); display: flex; flex-wrap: wrap; gap: var(--space-md);">
+                  <button type="button" onclick="showCreateOrgModal()" class="btn btn-primary">
+                    <i class="fas fa-plus" style="margin-right: var(--space-xs);"></i> Create an Organization
+                  </button>
+                  <button type="button" onclick="showJoinOrgModal()" class="btn btn-outline">
+                    <i class="fas fa-users" style="margin-right: var(--space-xs);"></i> Join an Organization
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Organization Membership - shown for users in an organization -->
+            <div id="orgMembershipSection" style="margin-top: var(--space-xxl); border-top: 1px solid var(--border-light); padding-top: var(--space-xl);">
+              <h2 class="section-title">Organization Membership</h2>
+              
+              <div class="card" style="padding: var(--space-lg); margin-bottom: var(--space-lg);">
+                <div style="display: flex; align-items: flex-start; justify-content: space-between;">
+                  <div>
+                    <h3 style="font-size: 1.125rem; font-weight: 600; margin-bottom: var(--space-sm);">You're a member of:</h3>
+                    <p style="color: var(--text-primary); font-size: 1.25rem; font-weight: 500; margin-bottom: var(--space-md);">
+                      Acme Inc.
+                    </p>
+                    <p style="color: var(--text-secondary); margin-bottom: var(--space-md);">
+                      Your role: <span style="font-weight: 500;">Admin</span>
+                    </p>
+                  </div>
+                  <span style="display: inline-block; background-color: rgba(67, 97, 238, 0.1); color: var(--primary); padding: 0.25rem 0.75rem; border-radius: var(--radius-full); font-size: 0.875rem; font-weight: 500;">
+                    Organization Member
+                  </span>
+                </div>
+                
+                <div style="margin-top: var(--space-lg); border-top: 1px solid var(--border-light); padding-top: var(--space-lg);">
+                  <p style="color: var(--text-secondary); margin-bottom: var(--space-md);">
+                    You can leave this organization to join a different one. <strong>Note:</strong> You will lose access to all organization data and settings.
+                  </p>
+                  <button type="button" onclick="showLeaveOrgModal()" class="btn btn-outline" style="color: var(--error); border-color: var(--error);">
+                    <i class="fas fa-sign-out-alt" style="margin-right: var(--space-xs);"></i> Leave Organization
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Password Section (initially hidden) -->
+          <div id="password-section" style="display: none;">
+            <div class="card" style="margin-bottom: var(--space-xl);">
+              <h2 style="font-size: 1.25rem; font-weight: 600; margin-bottom: var(--space-lg);">Change Password</h2>
+              
+              <form id="passwordForm">
+                <div class="form-group">
+                  <label for="currentPassword" class="form-label">Current Password</label>
+                  <div style="position: relative;">
+                    <input type="password" id="currentPassword" class="form-control" placeholder="••••••••" required>
+                    <button type="button" class="password-toggle" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: var(--text-light);">
+                      <i class="fas fa-eye"></i>
+                    </button>
+                  </div>
+                </div>
+                
+                <div class="form-group">
+                  <label for="newPassword" class="form-label">New Password</label>
+                  <div style="position: relative;">
+                    <input type="password" id="newPassword" class="form-control" placeholder="••••••••" required pattern=".{8,}" title="Password must be at least 8 characters">
+                    <button type="button" class="password-toggle" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: var(--text-light);">
+                      <i class="fas fa-eye"></i>
+                    </button>
+                  </div>
+                  <div style="margin-top: var(--space-xs); font-size: 0.75rem; color: var(--text-light);">
+                    At least 8 characters
+                  </div>
+                </div>
+                
+                <div class="form-group">
+                  <label for="confirmPassword" class="form-label">Confirm New Password</label>
+                  <div style="position: relative;">
+                    <input type="password" id="confirmPassword" class="form-control" placeholder="••••••••" required>
+                    <button type="button" class="password-toggle" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: var(--text-light);">
+                      <i class="fas fa-eye"></i>
+                    </button>
+                  </div>
+                </div>
+                
+                <div style="text-align: right; margin-top: var(--space-xl);">
+                  <button type="button" id="savePasswordBtn" class="btn btn-primary">Update Password</button>
+                </div>
+              </form>
+            </div>
+          </div>
+          
+          <!-- Connections Section (initially hidden) -->
+          <div id="connections-section" style="display: none;">
+            <div class="card" style="margin-bottom: var(--space-xl);">
+              <h2 style="font-size: 1.25rem; font-weight: 600; margin-bottom: var(--space-lg);">Connected Accounts</h2>
+              
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-lg); padding-bottom: var(--space-lg); border-bottom: 1px solid var(--border-light);">
+                <div style="display: flex; align-items: center;">
+                  <img src="img/google-logo.svg" alt="Google" style="width: 24px; height: 24px; margin-right: var(--space-lg);">
+                  <div>
+                    <h3 style="font-size: 1rem; font-weight: 500; margin-bottom: var(--space-xs);">Google</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 0;">john@example.com</p>
+                  </div>
+                </div>
+                
+                <button class="btn btn-outline btn-sm" style="color: var(--error); border-color: var(--error);">Disconnect</button>
+              </div>
+              
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-lg);">
+                <div style="display: flex; align-items: center;">
+                  <img src="img/microsoft-logo.svg" alt="Microsoft" style="width: 24px; height: 24px; margin-right: var(--space-lg);">
+                  <div>
+                    <h3 style="font-size: 1rem; font-weight: 500; margin-bottom: var(--space-xs);">Microsoft</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 0;">Not connected</p>
+                  </div>
+                </div>
+                
+                <button class="btn btn-outline btn-sm">Connect</button>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Danger Zone -->
+          <div class="card" style="margin-bottom: var(--space-xl); border: 1px solid rgba(239, 68, 68, 0.2);">
+            <h2 style="font-size: 1.25rem; font-weight: 600; margin-bottom: var(--space-lg); color: var(--error);">Danger Zone</h2>
+            
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <div>
+                <h3 style="font-size: 1rem; font-weight: 500; margin-bottom: var(--space-xs);">Delete Account</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 0;">
+                  Permanently delete your account and all of your data. This action cannot be undone.
+                </p>
+              </div>
+              
+              <button class="btn btn-outline btn-sm" style="color: var(--error); border-color: var(--error);">Delete Account</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Create Organization Modal -->
+      <div class="modal" id="createOrgModal" style="display: none; position: fixed; inset: 0; z-index: 1000;">
+        <div class="modal-backdrop" style="position: fixed; inset: 0; background: rgba(0,0,0,0.5);"></div>
+        <div class="modal-container" style="position: relative; background: white; border-radius: var(--radius-lg); width: 90%; max-width: 500px; margin: 10vh auto; box-shadow: var(--shadow-lg); max-height: 80vh; overflow-y: auto;">
+          <div class="modal-header" style="padding: var(--space-lg); border-bottom: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: center;">
+            <h3 class="modal-title" style="margin: 0; font-size: 1.25rem; font-weight: 600;">Create a New Organization</h3>
+            <button type="button" class="modal-close" onclick="closeModal('createOrgModal')" style="background: none; border: none; cursor: pointer; color: var(--text-light); font-size: 1.25rem;">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+          <div class="modal-body" style="padding: var(--space-lg);">
+            <p style="margin-bottom: var(--space-lg); color: var(--text-secondary);">
+              Create a new organization to collaborate with your team. You will be the owner of this organization.
+            </p>
+            <div class="form-group">
+              <label for="newOrgName" class="form-label">Organization Name</label>
+              <input type="text" id="newOrgName" class="form-control" placeholder="My Company">
+            </div>
+          </div>
+          <div class="modal-footer" style="padding: var(--space-lg); border-top: 1px solid var(--border-light); display: flex; justify-content: flex-end; gap: var(--space-md);">
+            <button type="button" class="btn btn-outline" onclick="closeModal('createOrgModal')">Cancel</button>
+            <button type="button" class="btn btn-primary" onclick="createOrganization()">Create Organization</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Join Organization Modal -->
+      <div class="modal" id="joinOrgModal" style="display: none; position: fixed; inset: 0; z-index: 1000;">
+        <div class="modal-backdrop" style="position: fixed; inset: 0; background: rgba(0,0,0,0.5);"></div>
+        <div class="modal-container" style="position: relative; background: white; border-radius: var(--radius-lg); width: 90%; max-width: 500px; margin: 10vh auto; box-shadow: var(--shadow-lg); max-height: 80vh; overflow-y: auto;">
+          <div class="modal-header" style="padding: var(--space-lg); border-bottom: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: center;">
+            <h3 class="modal-title" style="margin: 0; font-size: 1.25rem; font-weight: 600;">Join an Organization</h3>
+            <button type="button" class="modal-close" onclick="closeModal('joinOrgModal')" style="background: none; border: none; cursor: pointer; color: var(--text-light); font-size: 1.25rem;">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+          <div class="modal-body" style="padding: var(--space-lg);">
+            <p style="margin-bottom: var(--space-lg); color: var(--text-secondary);">
+              Enter the invite code you received from the organization admin to join their workspace.
+            </p>
+            <div class="form-group">
+              <label for="orgInviteCode" class="form-label">Invite Code</label>
+              <input type="text" id="orgInviteCode" class="form-control" placeholder="Enter invite code">
+            </div>
+          </div>
+          <div class="modal-footer" style="padding: var(--space-lg); border-top: 1px solid var(--border-light); display: flex; justify-content: flex-end; gap: var(--space-md);">
+            <button type="button" class="btn btn-outline" onclick="closeModal('joinOrgModal')">Cancel</button>
+            <button type="button" class="btn btn-primary" onclick="joinOrganization()">Join Organization</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Leave Organization Modal -->
+      <div class="modal" id="leaveOrgModal" style="display: none; position: fixed; inset: 0; z-index: 1000;">
+        <div class="modal-backdrop" style="position: fixed; inset: 0; background: rgba(0,0,0,0.5);"></div>
+        <div class="modal-container" style="position: relative; background: white; border-radius: var(--radius-lg); width: 90%; max-width: 500px; margin: 10vh auto; box-shadow: var(--shadow-lg); max-height: 80vh; overflow-y: auto;">
+          <div class="modal-header" style="padding: var(--space-lg); border-bottom: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: center;">
+            <h3 class="modal-title" style="margin: 0; font-size: 1.25rem; font-weight: 600;">Leave Organization</h3>
+            <button type="button" class="modal-close" onclick="closeModal('leaveOrgModal')" style="background: none; border: none; cursor: pointer; color: var(--text-light); font-size: 1.25rem;">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+          <div class="modal-body" style="padding: var(--space-lg);">
+            <div class="alert alert-warning" style="background-color: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.2); color: var(--warning); padding: var(--space-md); border-radius: var(--radius-md); margin-bottom: var(--space-lg);">
+              <i class="fas fa-exclamation-triangle" style="margin-right: var(--space-sm);"></i>
+              This action cannot be undone.
+            </div>
+            <p style="margin-bottom: var(--space-lg); color: var(--text-secondary);">
+              Are you sure you want to leave <strong>Acme Inc.</strong>? You will:
+            </p>
+            <ul style="color: var(--text-secondary); margin-bottom: var(--space-lg); padding-left: 1.5rem;">
+              <li style="margin-bottom: var(--space-sm);">Lose access to all organization data</li>
+              <li style="margin-bottom: var(--space-sm);">Be removed from all organization projects</li>
+              <li style="margin-bottom: var(--space-sm);">Need a new invitation to rejoin</li>
+            </ul>
+            <div class="form-group">
+              <label for="leaveConfirmation" class="form-label">Type "leave" to confirm</label>
+              <input type="text" id="leaveConfirmation" class="form-control" placeholder="leave">
+            </div>
+          </div>
+          <div class="modal-footer" style="padding: var(--space-lg); border-top: 1px solid var(--border-light); display: flex; justify-content: flex-end; gap: var(--space-md);">
+            <button type="button" class="btn btn-outline" onclick="closeModal('leaveOrgModal')">Cancel</button>
+            <button type="button" id="confirmLeaveBtn" class="btn btn-danger" onclick="leaveOrganization()" disabled>Leave Organization</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Switch Organization Modal -->
+      <div class="modal" id="switchOrgModal" style="display: none; position: fixed; inset: 0; z-index: 1000;">
+        <div class="modal-backdrop" style="position: fixed; inset: 0; background: rgba(0,0,0,0.5);"></div>
+        <div class="modal-container" style="position: relative; background: white; border-radius: var(--radius-lg); width: 90%; max-width: 500px; margin: 10vh auto; box-shadow: var(--shadow-lg); max-height: 80vh; overflow-y: auto;">
+          <div class="modal-header" style="padding: var(--space-lg); border-bottom: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: center;">
+            <h3 class="modal-title" style="margin: 0; font-size: 1.25rem; font-weight: 600;">What would you like to do next?</h3>
+            <button type="button" class="modal-close" onclick="closeModal('switchOrgModal')" style="background: none; border: none; cursor: pointer; color: var(--text-light); font-size: 1.25rem;">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+          <div class="modal-body" style="padding: var(--space-lg);">
+            <p style="margin-bottom: var(--space-lg); color: var(--text-secondary);">
+              You've successfully left your organization. You can now:
+            </p>
+            <div style="display: flex; flex-direction: column; gap: var(--space-md);">
+              <button type="button" onclick="closeModal('switchOrgModal'); showJoinOrgModal();" class="btn btn-primary">
+                <i class="fas fa-users" style="margin-right: var(--space-xs);"></i> Join a Different Organization
+              </button>
+              <button type="button" onclick="closeModal('switchOrgModal'); showCreateOrgModal();" class="btn btn-outline">
+                <i class="fas fa-plus" style="margin-right: var(--space-xs);"></i> Create a New Organization
+              </button>
+              <button type="button" onclick="convertToIndividual()" class="btn btn-outline">
+                <i class="fas fa-user" style="margin-right: var(--space-xs);"></i> Continue as Individual
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </main>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Check account type and organization membership status
+      const userStatus = localStorage.getItem('userStatus') || 
+                         new URLSearchParams(window.location.search).get('status') || 
+                         'org_member'; // Default for demo: org_member or individual
+      
+      // For demo purposes, we'll toggle sections based on the user status
+      if (userStatus === 'individual') {
+        document.getElementById('individualAccountSection').style.display = 'block';
+        document.getElementById('orgMembershipSection').style.display = 'none';
+      } else {
+        document.getElementById('individualAccountSection').style.display = 'none';
+        document.getElementById('orgMembershipSection').style.display = 'block';
+      }
+      
+      // Set up leave confirmation input validation
+      const leaveConfirmInput = document.getElementById('leaveConfirmation');
+      const confirmLeaveBtn = document.getElementById('confirmLeaveBtn');
+      
+      if (leaveConfirmInput && confirmLeaveBtn) {
+        leaveConfirmInput.addEventListener('input', function() {
+          if (this.value.toLowerCase() === 'leave') {
+            confirmLeaveBtn.disabled = false;
+          } else {
+            confirmLeaveBtn.disabled = true;
+          }
+        });
+      }
+      
+      // Tab switching functionality
+      const tabs = document.querySelectorAll('[href^="#"]');
+      const profileSection = document.getElementById('profile-section');
+      const passwordSection = document.getElementById('password-section');
+      const connectionsSection = document.getElementById('connections-section');
+      
+      tabs.forEach(tab => {
+        tab.addEventListener('click', (e) => {
+          e.preventDefault();
+          
+          // Remove active class from all tabs
+          tabs.forEach(t => {
+            t.classList.remove('active-tab');
+            t.style.borderBottom = 'none';
+            t.style.color = 'var(--text-secondary)';
+            t.style.fontWeight = '400';
+          });
+          
+          // Add active class to clicked tab
+          tab.classList.add('active-tab');
+          tab.style.borderBottom = '2px solid var(--primary)';
+          tab.style.color = 'var(--primary)';
+          tab.style.fontWeight = '500';
+          
+          // Show corresponding section
+          const sectionId = tab.getAttribute('href').substring(1);
+          profileSection.style.display = sectionId === 'profile' ? 'block' : 'none';
+          passwordSection.style.display = sectionId === 'password' ? 'block' : 'none';
+          connectionsSection.style.display = sectionId === 'connections' ? 'block' : 'none';
+        });
+      });
+      
+      // Save Profile Button
+      const saveProfileBtn = document.getElementById('saveProfileBtn');
+      if (saveProfileBtn) {
+        saveProfileBtn.addEventListener('click', () => {
+          saveProfileBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Saving...';
+          saveProfileBtn.disabled = true;
+          
+          // Simulate API request
+          setTimeout(() => {
+            saveProfileBtn.innerHTML = 'Saved!';
+            setTimeout(() => {
+              saveProfileBtn.innerHTML = 'Save Changes';
+              saveProfileBtn.disabled = false;
+            }, 1500);
+          }, 1500);
+        });
+      }
+      
+      // Save Password Button
+      const savePasswordBtn = document.getElementById('savePasswordBtn');
+      if (savePasswordBtn) {
+        savePasswordBtn.addEventListener('click', () => {
+          const newPassword = document.getElementById('newPassword');
+          const confirmPassword = document.getElementById('confirmPassword');
+          
+          // Basic validation
+          if (newPassword.value !== confirmPassword.value) {
+            alert("Passwords don't match. Please try again.");
+            return;
+          }
+          
+          savePasswordBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Updating...';
+          savePasswordBtn.disabled = true;
+          
+          // Simulate API request
+          setTimeout(() => {
+            savePasswordBtn.innerHTML = 'Updated!';
+            setTimeout(() => {
+              savePasswordBtn.innerHTML = 'Update Password';
+              savePasswordBtn.disabled = false;
+              
+              // Clear password fields
+              document.getElementById('currentPassword').value = '';
+              newPassword.value = '';
+              confirmPassword.value = '';
+            }, 1500);
+          }, 1500);
+        });
+      }
+    });
+    
+    // Modal controls
+    function showCreateOrgModal() {
+      document.getElementById('createOrgModal').style.display = 'block';
+      document.body.style.overflow = 'hidden';
+    }
+    
+    function showJoinOrgModal() {
+      document.getElementById('joinOrgModal').style.display = 'block';
+      document.body.style.overflow = 'hidden';
+    }
+    
+    function closeModal(modalId) {
+      document.getElementById(modalId).style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
+    
+    function createOrganization() {
+      const orgName = document.getElementById('newOrgName').value.trim();
+      
+      if (orgName) {
+        // Simulate API request with loading state
+        const createOrgBtn = document.querySelector('#createOrgModal .btn-primary');
+        createOrgBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Creating...';
+        createOrgBtn.disabled = true;
+        
+        setTimeout(() => {
+          // Show success message
+          const modalBody = document.querySelector('#createOrgModal .modal-body');
+          modalBody.innerHTML = `
+            <div class="alert alert-success">
+              <i class="fas fa-check-circle" style="margin-right: var(--space-sm);"></i>
+              Organization "${orgName}" created successfully!
+            </div>
+            <p style="text-align: center; margin-top: var(--space-lg);">
+              You will be redirected to your new organization dashboard.
+            </p>
+          `;
+          
+          // Update footer buttons
+          document.querySelector('#createOrgModal .modal-footer').innerHTML = `
+            <button type="button" class="btn btn-primary" onclick="window.location.href='organization.html?new=true'">
+              Continue to Organization
+            </button>
+          `;
+        }, 1500);
+      }
+    }
+    
+    function joinOrganization() {
+      const inviteCode = document.getElementById('orgInviteCode').value.trim();
+      
+      if (inviteCode) {
+        // Simulate API request with loading state
+        const joinOrgBtn = document.querySelector('#joinOrgModal .btn-primary');
+        joinOrgBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Joining...';
+        joinOrgBtn.disabled = true;
+        
+        setTimeout(() => {
+          // Show success message
+          const modalBody = document.querySelector('#joinOrgModal .modal-body');
+          modalBody.innerHTML = `
+            <div class="alert alert-success">
+              <i class="fas fa-check-circle" style="margin-right: var(--space-sm);"></i>
+              Successfully joined "Acme Inc." organization!
+            </div>
+            <p style="text-align: center; margin-top: var(--space-lg);">
+              You will be redirected to the organization dashboard.
+            </p>
+          `;
+          
+          // Update footer buttons
+          document.querySelector('#joinOrgModal .modal-footer').innerHTML = `
+            <button type="button" class="btn btn-primary" onclick="window.location.href='chat.html?org=acme'">
+              Continue to Organization
+            </button>
+          `;
+        }, 1500);
+      }
+    }
+    
+    function showLeaveOrgModal() {
+      document.getElementById('leaveOrgModal').style.display = 'block';
+      document.body.style.overflow = 'hidden';
+      
+      // Reset input field
+      const leaveConfirmInput = document.getElementById('leaveConfirmation');
+      if (leaveConfirmInput) {
+        leaveConfirmInput.value = '';
+      }
+      
+      // Disable confirm button
+      const confirmLeaveBtn = document.getElementById('confirmLeaveBtn');
+      if (confirmLeaveBtn) {
+        confirmLeaveBtn.disabled = true;
+      }
+    }
+    
+    function leaveOrganization() {
+      const confirmLeaveBtn = document.getElementById('confirmLeaveBtn');
+      
+      if (confirmLeaveBtn) {
+        // Simulate API request with loading state
+        confirmLeaveBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Processing...';
+        confirmLeaveBtn.disabled = true;
+        
+        setTimeout(() => {
+          // Close leave modal and show options modal
+          closeModal('leaveOrgModal');
+          document.getElementById('switchOrgModal').style.display = 'block';
+        }, 1500);
+      }
+    }
+    
+    function convertToIndividual() {
+      // Simulate API request to convert account to individual
+      const convertBtn = document.querySelector('#switchOrgModal .btn-outline:last-child');
+      
+      if (convertBtn) {
+        convertBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Processing...';
+        
+        setTimeout(() => {
+          // Update user status in localStorage for demo purposes
+          localStorage.setItem('userStatus', 'individual');
+          
+          // Reload page with individual status
+          window.location.href = 'account-settings.html?status=individual';
+        }, 1500);
+      }
+    }
+  </script>
+</body>
+</html> 

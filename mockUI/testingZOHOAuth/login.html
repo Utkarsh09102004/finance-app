@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - FinSync Mock UI</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container login-container">
+        <h1>FinSync Mock Login</h1>
+        <form id="loginForm">
+            <div>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required value="testuser@example.com">
+            </div>
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required value="strongpassword123">
+            </div>
+            <button type="submit">Login</button>
+        </form>
+        <div id="loginStatus" class="status-message"></div>
+    </div>
+
+    <script src="auth.js"></script>
+    <script>
+        checkAuth(); // Redirect if already logged in
+
+        document.getElementById('loginForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const loginStatusDiv = document.getElementById('loginStatus');
+            loginStatusDiv.textContent = 'Logging in...';
+            loginStatusDiv.className = 'status-message';
+            console.log(email, password);
+            const success = await loginUser(email, password);
+            console.log(success);
+            if (success) {
+                loginStatusDiv.textContent = 'Login successful! Redirecting...';
+                loginStatusDiv.classList.add('success');
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1000);
+            } else {
+                loginStatusDiv.textContent = 'Login failed. Please check credentials.';
+                loginStatusDiv.classList.add('error');
+            }
+        });
+    </script>
+</body>
+</html> 

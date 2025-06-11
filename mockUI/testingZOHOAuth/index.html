@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinSync Mock UI - Zoho Test</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Zoho Books Integration Test</h1>
+        <div id="userInfo" class="info-box">
+            <p>Welcome! <button id="logoutButton">Logout</button></p>
+        </div>
+
+        <div id="pageStatus" class="status-message"></div>
+
+        <div id="zohoIntegrationSection" class="info-box">
+            <h2>Zoho Books</h2>
+            <p id="zohoStatus" class="integration-status">Loading status...</p>
+            <p id="zohoConfigInfo" class="status-message error hidden"></p>
+            <button id="connectZohoButton" class="hidden">Connect to Zoho Books</button>
+        </div>
+
+        <div class="info-box">
+            <h2>Instructions:</h2>
+            <ol>
+                <li>Ensure your Django backend is running (e.g., on http://localhost:8000).</li>
+                <li>Ensure CORS is configured on your backend to allow requests from this page's origin.</li>
+                <li>Login with test credentials (see login.html for defaults if unchanged).</li>
+                <li>Click "Connect to Zoho Books". You should be redirected to Zoho.</li>
+                <li>Authorize the application in Zoho.</li>
+                <li>You should be redirected back. If multiple Zoho Orgs, you'll go to a config page.</li>
+                <li>If redirected to config page, select an org and save.</li>
+                <li>The status on this page should update.</li>
+                <li>To test re-authorization, you might need to revoke the token in Zoho and try an action that uses the token (like fetching orgs on the config page again, or a new sync action if you implement one).</li>
+            </ol>
+        </div>
+    </div>
+
+    <script src="auth.js"></script>
+    <script src="app.js"></script>
+</body>
+</html> 

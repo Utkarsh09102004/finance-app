@@ -1,0 +1,286 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global Light Mode Styles */
+body {
+  font-family: var(--finsync-font-sans, sans-serif);
+  background-color: hsl(var(--finsync-background, 220 20% 97%));
+  color: hsl(var(--finsync-foreground, 220 20% 15%));
+  line-height: 1.6;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensure body takes full viewport height */
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+/* Auth Page Specific Container */
+.auth-page-container {
+  display: flex;
+  flex-grow: 1; /* Allow it to take available space */
+  align-items: center;
+  justify-content: center;
+  padding: var(--finsync-space-4, 1rem);
+  background: linear-gradient(135deg, hsl(var(--finsync-background, 220 20% 97%)), hsl(var(--finsync-muted, 220 20% 90%) / 0.8));
+}
+
+/* Form Container (Card) */
+.form-card {
+  background-color: white;
+  padding: var(--finsync-space-8, 2rem);
+  border-radius: var(--finsync-radius-lg, 1rem);
+  box-shadow: var(--finsync-shadow-lg, 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05));
+  position: relative; /* For BorderBeam */
+  overflow: hidden;   /* For BorderBeam */
+  max-width: 450px;
+  width: 100%;
+  margin: var(--finsync-space-4, 1rem) auto;
+}
+
+.form-title {
+  font-size: var(--finsync-font-3xl, 1.875rem);
+  font-weight: 700;
+  color: hsl(var(--finsync-primary, 210 100% 50%));
+  text-align: center;
+  margin-bottom: var(--finsync-space-2, 0.5rem);
+}
+
+.form-subtitle {
+  font-size: var(--finsync-font-xl, 1.25rem);
+  font-weight: 600;
+  color: hsl(var(--finsync-foreground, 220 20% 15%) / 0.8);
+  text-align: center;
+  margin-bottom: var(--finsync-space-6, 1.5rem);
+}
+
+/* Form Elements */
+.form-group {
+  margin-bottom: var(--finsync-space-4, 1rem);
+}
+
+.form-label {
+  display: block;
+  font-weight: 500;
+  color: hsl(var(--finsync-foreground, 220 20% 15%) / 0.9);
+  margin-bottom: var(--finsync-space-2, 0.5rem);
+  font-size: var(--finsync-font-sm, 0.875rem);
+}
+
+.form-input {
+  display: block;
+  width: 100%;
+  padding: var(--finsync-space-3, 0.75rem) var(--finsync-space-4, 1rem);
+  font-size: var(--finsync-font-base, 1rem);
+  line-height: 1.5;
+  color: hsl(var(--finsync-foreground, 220 20% 15%));
+  background-color: #fff; 
+  background-clip: padding-box;
+  border: 1px solid hsl(var(--finsync-muted-foreground, 220 10% 40%) / 0.5);
+  border-radius: var(--finsync-radius-md, 0.5rem);
+  transition: border-color var(--finsync-transition-fast, 150ms) ease-in-out, box-shadow var(--finsync-transition-fast, 150ms) ease-in-out;
+}
+
+.form-input:focus {
+  border-color: hsl(var(--finsync-primary, 210 100% 50%));
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem hsl(var(--finsync-primary, 210 100% 50%) / 0.25);
+}
+
+.form-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--finsync-space-3, 0.75rem) var(--finsync-space-6, 1.5rem);
+  font-size: var(--finsync-font-base, 1rem);
+  font-weight: 500;
+  line-height: 1.5;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  cursor: pointer;
+  user-select: none;
+  border: 1px solid transparent;
+  border-radius: var(--finsync-radius-md, 0.5rem);
+  transition: background-color var(--finsync-transition-fast, 150ms) ease-in-out, border-color var(--finsync-transition-fast, 150ms) ease-in-out;
+  color: white;
+  background-color: hsl(var(--finsync-primary, 210 100% 50%));
+  border-color: hsl(var(--finsync-primary, 210 100% 50%));
+  width: 100%;
+}
+
+.form-button:hover {
+  background-color: hsl(var(--finsync-primary-dark, 210 100% 40%));
+  border-color: hsl(var(--finsync-primary-dark, 210 100% 40%));
+}
+
+.form-button:focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem hsl(var(--finsync-primary, 210 100% 50%) / 0.25);
+}
+
+.form-button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.error-text {
+  color: hsl(var(--finsync-error, 0 100% 50%));
+  font-size: var(--finsync-font-sm, 0.875rem);
+  margin-top: var(--finsync-space-1, 0.25rem);
+}
+
+.error-box {
+  background-color: hsl(var(--finsync-error) / 0.1);
+  color: hsl(var(--finsync-error));
+  padding: var(--finsync-space-3); 
+  margin-bottom: var(--finsync-space-4);
+  border-radius: var(--finsync-radius-md);
+  border: 1px solid hsl(var(--finsync-error) / 0.3);
+}
+
+.success-box {
+  background-color: hsl(var(--finsync-success) / 0.1);
+  color: hsl(var(--finsync-success));
+  padding: var(--finsync-space-3);
+  margin-bottom: var(--finsync-space-4);
+  border-radius: var(--finsync-radius-md);
+  border: 1px solid hsl(var(--finsync-success) / 0.3);
+}
+
+.form-link {
+  color: hsl(var(--finsync-primary, 210 100% 50%));
+  text-decoration: none;
+  font-weight: 500;
+}
+.form-link:hover {
+  text-decoration: underline;
+  color: hsl(var(--finsync-primary-dark, 210 100% 40%));
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mt-6 {
+  margin-top: var(--finsync-space-6, 1.5rem);
+}
+.mb-4 {
+  margin-bottom: var(--finsync-space-4, 1rem);
+}
+.mb-6 {
+  margin-bottom: var(--finsync-space-6, 1.5rem);
+}
+.mb-8 {
+  margin-bottom: var(--finsync-space-8, 2rem);
+}
+.ml-1 {
+  margin-left: var(--finsync-space-1, 0.25rem);
+}
+
+.spinner {
+  display: inline-block;
+  width: var(--finsync-font-base, 1rem);
+  height: var(--finsync-font-base, 1rem);
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spinner-border .75s linear infinite;
+  margin-right: var(--finsync-space-2, 0.5rem);
+}
+
+@keyframes spinner-border {
+  to { transform: rotate(360deg); }
+}
+
+/* Styles for remember me and forgot password */
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--finsync-space-4, 1rem);
+  font-size: var(--finsync-font-sm, 0.875rem);
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+}
+
+.remember-me input[type="checkbox"] {
+  margin-right: var(--finsync-space-2, 0.5rem);
+  height: var(--finsync-font-base, 1rem);
+  width: var(--finsync-font-base, 1rem);
+  border-radius: var(--finsync-radius-sm, 0.25rem);
+  border: 1px solid hsl(var(--finsync-muted-foreground, 220 10% 40%) / 0.5);
+}
+
+.remember-me input[type="checkbox"]:focus {
+  border-color: hsl(var(--finsync-primary, 210 100% 50%));
+  box-shadow: 0 0 0 0.2rem hsl(var(--finsync-primary, 210 100% 50%) / 0.25);
+  outline: none;
+}
+
+.remember-me label {
+  font-weight: normal;
+  color: hsl(var(--finsync-foreground, 220 20% 15%) / 0.8);
+}
+
+/* Responsive grid for first/last name in register form */
+.name-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--finsync-space-4, 1rem);
+}
+
+@media (min-width: 640px) { /* sm breakpoint or similar */
+  .name-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Small text for invite code hint */
+.form-hint {
+  font-size: var(--finsync-font-xs, 0.75rem);
+  color: hsl(var(--finsync-muted-foreground, 220 10% 40%));
+  margin-top: var(--finsync-space-1, 0.25rem);
+}
+
+/* Ensure specific logo styling from previous implementation isn't lost */
+.logo-container {
+  position: relative; 
+  margin-left: auto; 
+  margin-right: auto; 
+  margin-bottom: var(--finsync-space-8, 2rem);
+  max-width: max-content;
+}
+
+.logo-underline {
+  position: absolute; 
+  inset-inline-start: 0; 
+  inset-inline-end: 0; 
+  bottom: -0.5rem; /* -bottom-2 */ 
+  height: 0.25rem; /* h-1 */
+  background-color: hsl(var(--finsync-primary-light, 210 100% 60%));
+}
+
+/* Radix UI themes reset/base styles might have been in App.css or index.css previously. Ensure basic resets are present. */
+*, ::before, ::after {
+  box-sizing: border-box;
+  /* border-width: 0; */ /* Tailwind will handle this via preflight */
+  /* border-style: solid; */ /* Tailwind will handle this */
+  /* border-color: currentColor; */ /* Tailwind will handle this */
+}
+
+html {
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+  -moz-tab-size: 4;
+  tab-size: 4;
+  font-family: var(--finsync-font-sans, sans-serif); /* Existing FinSync font */
+}

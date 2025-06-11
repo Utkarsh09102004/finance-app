@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configure Zoho Organization - FinSync Mock UI</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Configure Zoho Books Organization</h1>
+        <div id="userInfo" class="info-box">
+            <p>Welcome! <button id="logoutButton">Logout</button></p>
+        </div>
+
+        <div id="zohoOrgConfigurationSection">
+            <p>Integration ID: <strong id="integrationIdDisplay"></strong></p>
+            <p id="loadingOrgsMessage" class="status-message hidden">Loading Zoho organizations...</p>
+            
+            <form id="zohoOrgForm">
+                <div>
+                    <label for="zohoOrgSelect">Select Zoho Organization:</label>
+                    <select id="zohoOrgSelect" name="zohoOrgSelect" disabled>
+                        <option value="">Loading...</option>
+                    </select>
+                </div>
+                <button type="submit">Save Configuration</button>
+            </form>
+            <div id="configStatus" class="status-message"></div>
+            <p><a href="index.html">Back to Dashboard</a></p>
+        </div>
+    </div>
+
+    <script src="auth.js"></script>
+    <script src="app.js"></script>
+</body>
+</html> 

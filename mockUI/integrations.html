@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Integrations - FinSync</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="img/favicon.png">
+</head>
+<body>
+  <!-- Onboarding Progress Bar (visible for first-time users) -->
+  <div id="onboardingProgress" style="background-color: var(--bg-white); padding: var(--space-md) var(--space-lg); border-bottom: 1px solid var(--border-light); display: flex; align-items: center; justify-content: center; flex-direction: column;">
+    <div style="display: flex; align-items: center; margin-bottom: var(--space-md);">
+      <div style="width: 24px; height: 24px; border-radius: 50%; background-color: var(--success); color: white; display: flex; align-items: center; justify-content: center; font-size: 0.75rem;">
+        <i class="fas fa-check"></i>
+      </div>
+      <div style="width: 50px; height: 2px; background-color: var(--success);"></div>
+      <div style="width: 24px; height: 24px; border-radius: 50%; background-color: var(--success); color: white; display: flex; align-items: center; justify-content: center; font-size: 0.75rem;">
+        <i class="fas fa-check"></i>
+      </div>
+      <div style="width: 50px; height: 2px; background-color: var(--primary);"></div>
+      <div style="width: 24px; height: 24px; border-radius: 50%; background-color: var(--primary); color: white; display: flex; align-items: center; justify-content: center; font-size: 0.75rem;">
+        3
+      </div>
+    </div>
+    
+    <div style="display: flex; justify-content: center; font-size: 0.75rem; color: var(--text-light); width: 150px; text-align: center;">
+      <div style="width: 74px;">Account</div>
+      <div style="width: 74px;">Organization</div>
+      <div style="width: 74px; font-weight: 600; color: var(--primary);">Integration</div>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+        <a href="chat.html">
+          <span style="font-size: 1.5rem; font-weight: 700; color: var(--primary);">Fin</span><span style="font-size: 1.5rem; font-weight: 700; color: var(--accent);">Sync</span>
+        </a>
+      </div>
+      
+      <nav class="sidebar-nav">
+        <a href="chat.html" class="sidebar-nav-item">
+          <i class="fas fa-comments sidebar-nav-icon"></i>
+          <span>Chat</span>
+        </a>
+        <a href="integrations.html" class="sidebar-nav-item active">
+          <i class="fas fa-plug sidebar-nav-icon"></i>
+          <span>Integrations</span>
+        </a>
+        <a href="organization.html" class="sidebar-nav-item">
+          <i class="fas fa-building sidebar-nav-icon"></i>
+          <span>Organization</span>
+        </a>
+        <a href="billing.html" class="sidebar-nav-item">
+          <i class="fas fa-credit-card sidebar-nav-icon"></i>
+          <span>Billing</span>
+        </a>
+      </nav>
+      
+      <div class="sidebar-footer">
+        <a href="account-settings.html" class="sidebar-nav-item">
+          <i class="fas fa-cog sidebar-nav-icon"></i>
+          <span>Settings</span>
+        </a>
+        <a href="index.html" class="sidebar-nav-item">
+          <i class="fas fa-sign-out-alt sidebar-nav-icon"></i>
+          <span>Logout</span>
+        </a>
+      </div>
+    </aside>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+      <div style="max-width: 1000px; margin: 0 auto;">
+        <h1 style="font-size: 1.75rem; font-weight: 600; margin-bottom: var(--space-md);">Connect Your First Integration</h1>
+        
+        <p style="color: var(--text-secondary); margin-bottom: var(--space-xl);">
+          Connect your accounting software to get started with FinSync. This allows you to ask natural language questions about your financial data.
+        </p>
+        
+        <!-- No Integrations View (First Time) -->
+        <div class="card" style="text-align: center; padding: var(--space-xxl); margin-bottom: var(--space-xl);">
+          <img src="img/connect-illustration.svg" alt="Connect your accounting" style="width: 200px; height: auto; margin-bottom: var(--space-xl);">
+          
+          <h2 style="font-size: 1.5rem; margin-bottom: var(--space-md); font-weight: 600;">One Last Step to Get Started</h2>
+          
+          <p style="color: var(--text-secondary); margin-bottom: var(--space-xl); max-width: 600px; margin-left: auto; margin-right: auto;">
+            FinSync works by securely connecting to your existing accounting software. Connect your Zoho Books account to start asking questions and getting insights.
+          </p>
+          
+          <button onclick="connectZohoBooks()" class="btn btn-primary btn-lg connect-zoho-btn" style="display: flex; align-items: center; justify-content: center; margin: 0 auto;">
+            <img src="img/zoho-books-logo.svg" alt="Zoho Books" style="width: 24px; height: 24px; margin-right: var(--space-md);">
+            Connect Zoho Books
+          </button>
+        </div>
+        
+        <!-- Connected Integrations View (After connection, initially hidden) -->
+        <div id="connectedView" style="display: none;">
+          <div class="card" style="margin-bottom: var(--space-lg);">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <div style="display: flex; align-items: center;">
+                <img src="img/zoho-books-logo.svg" alt="Zoho Books" style="width: 40px; height: 40px; margin-right: var(--space-lg);">
+                <div>
+                  <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: var(--space-sm);">Zoho Books</h3>
+                  <p style="color: var(--text-secondary); margin-bottom: 0;">Acme Startup Inc.</p>
+                </div>
+              </div>
+              
+              <div>
+                <span style="display: inline-block; background-color: rgba(16, 185, 129, 0.1); color: var(--success); padding: 0.25rem 0.75rem; border-radius: var(--radius-full); font-size: 0.875rem; font-weight: 500; margin-right: var(--space-md);">
+                  Connected
+                </span>
+                <span style="color: var(--text-light); font-size: 0.875rem;">Last synced: Just now</span>
+              </div>
+            </div>
+            
+            <div style="margin-top: var(--space-lg); padding-top: var(--space-lg); border-top: 1px solid var(--border-light); display: flex; justify-content: flex-end;">
+              <button class="btn btn-outline btn-sm" style="margin-right: var(--space-md);">Reconnect</button>
+              <button class="btn btn-outline btn-sm" style="color: var(--error); border-color: var(--error);">Disconnect</button>
+            </div>
+          </div>
+          
+          <div style="text-align: center; margin-top: var(--space-lg); margin-bottom: var(--space-xxl);">
+            <p style="color: var(--text-secondary); margin-bottom: var(--space-lg);">
+              Your account is now connected and ready to use!
+            </p>
+            <a href="chat.html" class="btn btn-primary">
+              Continue to Chat <i class="fas fa-arrow-right" style="margin-left: var(--space-sm);"></i>
+            </a>
+          </div>
+          
+          <h2 style="font-size: 1.25rem; font-weight: 600; margin-top: var(--space-xxl); margin-bottom: var(--space-lg);">Need to connect another accounting system?</h2>
+          <p style="color: var(--text-secondary); margin-bottom: var(--space-lg);">
+            Your current plan allows for 1 integration. <a href="billing.html">Upgrade your plan</a> to connect more.
+          </p>
+        </div>
+        
+        <!-- Coming Soon Integrations -->
+        <h2 style="font-size: 1.25rem; font-weight: 600; margin-bottom: var(--space-lg); margin-top: var(--space-xxl);">Coming Soon</h2>
+        
+        <div class="row">
+          <div class="col" style="flex: 1; min-width: 250px;">
+            <div class="card" style="text-align: center; opacity: 0.7;">
+              <img src="img/quickbooks-logo.svg" alt="QuickBooks" style="width: 50px; height: 50px; margin-bottom: var(--space-md);">
+              <h3 style="font-size: 1.125rem; font-weight: 600; margin-bottom: var(--space-sm);">QuickBooks</h3>
+              <p style="color: var(--text-secondary); margin-bottom: var(--space-md); font-size: 0.875rem;">
+                Connect your QuickBooks Online account to ask questions about your finances.
+              </p>
+              <span style="display: inline-block; background-color: rgba(245, 158, 11, 0.1); color: var(--warning); padding: 0.25rem 0.75rem; border-radius: var(--radius-full); font-size: 0.75rem; font-weight: 500;">
+                Coming Q3 2023
+              </span>
+            </div>
+          </div>
+          
+          <div class="col" style="flex: 1; min-width: 250px;">
+            <div class="card" style="text-align: center; opacity: 0.7;">
+              <img src="img/xero-logo.svg" alt="Xero" style="width: 50px; height: 50px; margin-bottom: var(--space-md);">
+              <h3 style="font-size: 1.125rem; font-weight: 600; margin-bottom: var(--space-sm);">Xero</h3>
+              <p style="color: var(--text-secondary); margin-bottom: var(--space-md); font-size: 0.875rem;">
+                Connect your Xero account to ask questions about your finances.
+              </p>
+              <span style="display: inline-block; background-color: rgba(245, 158, 11, 0.1); color: var(--warning); padding: 0.25rem 0.75rem; border-radius: var(--radius-full); font-size: 0.75rem; font-weight: 500;">
+                Coming Q4 2023
+              </span>
+            </div>
+          </div>
+          
+          <div class="col" style="flex: 1; min-width: 250px;">
+            <div class="card" style="text-align: center; opacity: 0.7;">
+              <img src="img/sage-logo.svg" alt="Sage" style="width: 50px; height: 50px; margin-bottom: var(--space-md);">
+              <h3 style="font-size: 1.125rem; font-weight: 600; margin-bottom: var(--space-sm);">Sage</h3>
+              <p style="color: var(--text-secondary); margin-bottom: var(--space-md); font-size: 0.875rem;">
+                Connect your Sage account to ask questions about your finances.
+              </p>
+              <span style="display: inline-block; background-color: rgba(245, 158, 11, 0.1); color: var(--warning); padding: 0.25rem 0.75rem; border-radius: var(--radius-full); font-size: 0.75rem; font-weight: 500;">
+                Coming Q1 2024
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Check if user is coming from onboarding
+      const urlParams = new URLSearchParams(window.location.search);
+      const isNewUser = urlParams.get('new') === 'true' || document.referrer.includes('org-setup.html');
+      const userType = urlParams.get('type') || 'org';
+      
+      // If not a new user, hide the onboarding progress bar
+      if (!isNewUser) {
+        document.getElementById('onboardingProgress').style.display = 'none';
+      }
+
+      // Adjust text based on individual vs org
+      if (userType === 'individual') {
+        document.querySelector('h1').textContent = 'Connect Your Financial Data';
+        document.querySelector('h2').textContent = 'One Last Step to Complete Your Setup';
+        
+        const description = document.querySelector('.card p');
+        if (description) {
+          description.textContent = 'FinSync works by securely connecting to your accounting software. Connect your personal Zoho Books account to start asking questions and getting insights about your finances.';
+        }
+      }
+
+      // Override the connectZohoBooks function
+      window.connectZohoBooks = function() {
+        const connectButton = document.querySelector('.connect-zoho-btn');
+        
+        if (connectButton) {
+          connectButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Connecting...';
+          
+          // Simulate connection process
+          setTimeout(() => {
+            connectButton.innerHTML = 'Connected ✓';
+            connectButton.classList.remove('btn-primary');
+            connectButton.classList.add('btn-success');
+            connectButton.disabled = true;
+            
+            // Hide the first-time integration card and show the connected view
+            document.querySelector('.card').style.display = 'none';
+            document.getElementById('connectedView').style.display = 'block';
+            
+            // If user is new, hide the sidebar for simplified onboarding flow
+            if (isNewUser) {
+              document.querySelector('.sidebar').style.display = 'none';
+              document.querySelector('.main-content').style.marginLeft = '0';
+              
+              if (userType === 'individual') {
+                document.querySelector('h1').textContent = 'Personal Account Connected!';
+              } else {
+                document.querySelector('h1').textContent = 'Connection Successful!';
+              }
+            }
+          }, 2000);
+        }
+      };
+    });
+  </script>
+</body>
+</html> 

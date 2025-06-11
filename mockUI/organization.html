@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Organization Settings - FinSync</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="img/favicon.png">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+        <a href="chat.html">
+          <span style="font-size: 1.5rem; font-weight: 700; color: var(--primary);">Fin</span><span style="font-size: 1.5rem; font-weight: 700; color: var(--accent);">Sync</span>
+        </a>
+      </div>
+      
+      <nav class="sidebar-nav">
+        <a href="chat.html" class="sidebar-nav-item">
+          <i class="fas fa-comments sidebar-nav-icon"></i>
+          <span>Chat</span>
+        </a>
+        <a href="integrations.html" class="sidebar-nav-item">
+          <i class="fas fa-plug sidebar-nav-icon"></i>
+          <span>Integrations</span>
+        </a>
+        <a href="organization.html" class="sidebar-nav-item active">
+          <i class="fas fa-building sidebar-nav-icon"></i>
+          <span>Organization</span>
+        </a>
+        <a href="billing.html" class="sidebar-nav-item">
+          <i class="fas fa-credit-card sidebar-nav-icon"></i>
+          <span>Billing</span>
+        </a>
+      </nav>
+      
+      <div class="sidebar-footer">
+        <a href="account-settings.html" class="sidebar-nav-item">
+          <i class="fas fa-cog sidebar-nav-icon"></i>
+          <span>Settings</span>
+        </a>
+        <a href="index.html" class="sidebar-nav-item">
+          <i class="fas fa-sign-out-alt sidebar-nav-icon"></i>
+          <span>Logout</span>
+        </a>
+      </div>
+    </aside>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+      <div style="max-width: 800px; margin: 0 auto;">
+        <h1 style="font-size: 1.75rem; font-weight: 600; margin-bottom: var(--space-lg);">Organization Settings</h1>
+        
+        <!-- Organization Details -->
+        <div class="card" style="margin-bottom: var(--space-xl);">
+          <h2 style="font-size: 1.25rem; font-weight: 600; margin-bottom: var(--space-lg);">Organization Details</h2>
+          
+          <form id="orgForm">
+            <div class="form-group">
+              <label for="orgName" class="form-label">Organization Name</label>
+              <input type="text" id="orgName" class="form-control" value="Acme Startup Inc.">
+            </div>
+            
+            <div class="form-group">
+              <label for="orgDomain" class="form-label">Organization Domain</label>
+              <input type="text" id="orgDomain" class="form-control" value="acmestartup.com" disabled>
+              <div style="margin-top: var(--space-xs); font-size: 0.75rem; color: var(--text-light);">
+                Contact support to change your organization domain.
+              </div>
+            </div>
+            
+            <div style="text-align: right; margin-top: var(--space-xl);">
+              <button type="button" id="saveOrgBtn" class="btn btn-primary">Save Changes</button>
+            </div>
+          </form>
+        </div>
+        
+        <!-- Team Members (for Team plans) -->
+        <div class="card" style="margin-bottom: var(--space-xl);">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-lg);">
+            <h2 style="font-size: 1.25rem; font-weight: 600; margin: 0;">Team Members</h2>
+            
+            <button class="btn btn-primary btn-sm" id="inviteBtn">
+              <i class="fas fa-plus" style="margin-right: var(--space-xs);"></i> Invite Member
+            </button>
+          </div>
+          
+          <p style="color: var(--text-secondary); margin-bottom: var(--space-lg);">
+            Manage the members of your organization. You are currently using 3 out of 5 seats in your plan.
+          </p>
+          
+          <!-- Member List -->
+          <div style="border: 1px solid var(--border-light); border-radius: var(--radius-md); overflow: hidden; margin-bottom: var(--space-lg);">
+            <!-- Table Header -->
+            <div style="display: flex; background-color: var(--bg-light); padding: var(--space-md); border-bottom: 1px solid var(--border-light); font-weight: 500;">
+              <div style="flex: 2;">Name</div>
+              <div style="flex: 2;">Email</div>
+              <div style="flex: 1; text-align: center;">Role</div>
+              <div style="flex: 1; text-align: right;">Actions</div>
+            </div>
+            
+            <!-- Member Row (You) -->
+            <div style="display: flex; padding: var(--space-md); border-bottom: 1px solid var(--border-light); align-items: center;">
+              <div style="flex: 2; display: flex; align-items: center;">
+                <div style="width: 32px; height: 32px; border-radius: 50%; background-color: var(--primary); color: white; display: flex; align-items: center; justify-content: center; margin-right: var(--space-md);">
+                  JS
+                </div>
+                <div>
+                  John Smith (You)
+                </div>
+              </div>
+              <div style="flex: 2;">john@example.com</div>
+              <div style="flex: 1; text-align: center;">
+                <span style="display: inline-block; background-color: rgba(67, 97, 238, 0.1); color: var(--primary); padding: 0.25rem 0.5rem; border-radius: var(--radius-full); font-size: 0.75rem; font-weight: 500;">
+                  Admin
+                </span>
+              </div>
+              <div style="flex: 1; text-align: right;">
+                <span style="color: var(--text-light); font-size: 0.875rem;">—</span>
+              </div>
+            </div>
+            
+            <!-- Member Row -->
+            <div style="display: flex; padding: var(--space-md); border-bottom: 1px solid var(--border-light); align-items: center;">
+              <div style="flex: 2; display: flex; align-items: center;">
+                <div style="width: 32px; height: 32px; border-radius: 50%; background-color: var(--secondary); color: white; display: flex; align-items: center; justify-content: center; margin-right: var(--space-md);">
+                  SD
+                </div>
+                <div>
+                  Sarah Davis
+                </div>
+              </div>
+              <div style="flex: 2;">sarah@example.com</div>
+              <div style="flex: 1; text-align: center;">
+                <select class="form-control" style="padding: 0.25rem; font-size: 0.875rem;">
+                  <option>Member</option>
+                  <option>Admin</option>
+                </select>
+              </div>
+              <div style="flex: 1; text-align: right;">
+                <button class="btn btn-sm" style="background: none; color: var(--error); padding: 0.25rem 0.5rem;">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </div>
+            
+            <!-- Member Row -->
+            <div style="display: flex; padding: var(--space-md); align-items: center;">
+              <div style="flex: 2; display: flex; align-items: center;">
+                <div style="width: 32px; height: 32px; border-radius: 50%; background-color: var(--warning); color: white; display: flex; align-items: center; justify-content: center; margin-right: var(--space-md);">
+                  MT
+                </div>
+                <div>
+                  Michael Thompson
+                </div>
+              </div>
+              <div style="flex: 2;">michael@example.com</div>
+              <div style="flex: 1; text-align: center;">
+                <select class="form-control" style="padding: 0.25rem; font-size: 0.875rem;">
+                  <option>Member</option>
+                  <option>Admin</option>
+                </select>
+              </div>
+              <div style="flex: 1; text-align: right;">
+                <button class="btn btn-sm" style="background: none; color: var(--error); padding: 0.25rem 0.5rem;">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Invite Member Modal (initially hidden) -->
+        <div id="inviteModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.5); z-index: 1000; align-items: center; justify-content: center;">
+          <div style="background-color: white; border-radius: var(--radius-lg); width: 100%; max-width: 500px; padding: var(--space-xl);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-lg);">
+              <h3 style="font-size: 1.25rem; font-weight: 600; margin: 0;">Invite Team Member</h3>
+              <button id="closeModalBtn" style="background: none; border: none; cursor: pointer; font-size: 1.25rem; color: var(--text-light);">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+            
+            <form id="inviteForm">
+              <div class="form-group">
+                <label for="inviteEmail" class="form-label">Email Address</label>
+                <input type="email" id="inviteEmail" class="form-control" placeholder="colleague@example.com" required>
+              </div>
+              
+              <div class="form-group">
+                <label for="inviteRole" class="form-label">Role</label>
+                <select id="inviteRole" class="form-control">
+                  <option value="member">Member</option>
+                  <option value="admin">Admin</option>
+                </select>
+              </div>
+              
+              <div class="form-group">
+                <label for="inviteMessage" class="form-label">Personal Message (Optional)</label>
+                <textarea id="inviteMessage" class="form-control" rows="3" placeholder="I'd like to invite you to join our FinSync workspace..."></textarea>
+              </div>
+              
+              <div style="display: flex; justify-content: flex-end; gap: var(--space-md); margin-top: var(--space-xl);">
+                <button type="button" id="cancelInviteBtn" class="btn btn-outline">Cancel</button>
+                <button type="submit" id="sendInviteBtn" class="btn btn-primary">Send Invitation</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        
+        <!-- Security & Compliance -->
+        <div class="card" style="margin-bottom: var(--space-xl);">
+          <h2 style="font-size: 1.25rem; font-weight: 600; margin-bottom: var(--space-lg);">Security & Compliance</h2>
+          
+          <div style="margin-bottom: var(--space-lg); padding-bottom: var(--space-lg); border-bottom: 1px solid var(--border-light);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-md);">
+              <div>
+                <h3 style="font-size: 1rem; font-weight: 500; margin-bottom: var(--space-xs);">Two-Factor Authentication</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 0;">
+                  Require members to set up two-factor authentication for additional security.
+                </p>
+              </div>
+              
+              <label class="switch" style="position: relative; display: inline-block; width: 50px; height: 24px;">
+                <input type="checkbox" checked>
+                <span style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--primary); border-radius: 34px; transition: .4s;"></span>
+              </label>
+            </div>
+          </div>
+          
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-md);">
+              <div>
+                <h3 style="font-size: 1rem; font-weight: 500; margin-bottom: var(--space-xs);">Session Timeout</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 0;">
+                  Automatically log members out after a period of inactivity.
+                </p>
+              </div>
+              
+              <select class="form-control" style="width: auto;">
+                <option>After 1 hour</option>
+                <option>After 8 hours</option>
+                <option selected>After 24 hours</option>
+                <option>After 7 days</option>
+                <option>Never</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Data Export -->
+        <div class="card" style="margin-bottom: var(--space-xl);">
+          <h2 style="font-size: 1.25rem; font-weight: 600; margin-bottom: var(--space-lg);">Data Export</h2>
+          
+          <p style="color: var(--text-secondary); margin-bottom: var(--space-lg);">
+            Export all your organization's data for backup or compliance purposes.
+          </p>
+          
+          <div style="display: flex; gap: var(--space-md);">
+            <button class="btn btn-outline">
+              <i class="fas fa-download" style="margin-right: var(--space-xs);"></i> Export All Data
+            </button>
+            <button class="btn btn-outline">
+              <i class="fas fa-history" style="margin-right: var(--space-xs);"></i> View Export History
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Organization save button
+      const saveOrgBtn = document.getElementById('saveOrgBtn');
+      if (saveOrgBtn) {
+        saveOrgBtn.addEventListener('click', () => {
+          saveOrgBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Saving...';
+          saveOrgBtn.disabled = true;
+          
+          // Simulate API request
+          setTimeout(() => {
+            saveOrgBtn.innerHTML = 'Saved!';
+            setTimeout(() => {
+              saveOrgBtn.innerHTML = 'Save Changes';
+              saveOrgBtn.disabled = false;
+            }, 1500);
+          }, 1500);
+        });
+      }
+      
+      // Invite modal functionality
+      const inviteBtn = document.getElementById('inviteBtn');
+      const inviteModal = document.getElementById('inviteModal');
+      const closeModalBtn = document.getElementById('closeModalBtn');
+      const cancelInviteBtn = document.getElementById('cancelInviteBtn');
+      const inviteForm = document.getElementById('inviteForm');
+      const sendInviteBtn = document.getElementById('sendInviteBtn');
+      
+      function openModal() {
+        inviteModal.style.display = 'flex';
+        document.body.style.overflow = 'hidden'; // Prevent scrolling
+      }
+      
+      function closeModal() {
+        inviteModal.style.display = 'none';
+        document.body.style.overflow = 'auto'; // Re-enable scrolling
+        inviteForm.reset();
+      }
+      
+      if (inviteBtn) inviteBtn.addEventListener('click', openModal);
+      if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
+      if (cancelInviteBtn) cancelInviteBtn.addEventListener('click', closeModal);
+      
+      // Handle form submission
+      if (inviteForm) {
+        inviteForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          
+          sendInviteBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Sending...';
+          sendInviteBtn.disabled = true;
+          
+          // Simulate API request
+          setTimeout(() => {
+            closeModal();
+            
+            // Show success message
+            const successAlert = document.createElement('div');
+            successAlert.style.position = 'fixed';
+            successAlert.style.bottom = '20px';
+            successAlert.style.right = '20px';
+            successAlert.style.backgroundColor = 'rgba(16, 185, 129, 0.9)';
+            successAlert.style.color = 'white';
+            successAlert.style.padding = '1rem';
+            successAlert.style.borderRadius = '0.375rem';
+            successAlert.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)';
+            successAlert.style.zIndex = '1000';
+            successAlert.innerHTML = `
+              <div style="display: flex; align-items: center;">
+                <i class="fas fa-check-circle" style="margin-right: 0.75rem; font-size: 1.25rem;"></i>
+                <div>
+                  <div style="font-weight: 500; margin-bottom: 0.25rem;">Invitation Sent!</div>
+                  <div style="font-size: 0.875rem;">An invitation email has been sent to ${document.getElementById('inviteEmail').value}</div>
+                </div>
+              </div>
+            `;
+            
+            document.body.appendChild(successAlert);
+            
+            // Remove success message after 5 seconds
+            setTimeout(() => {
+              document.body.removeChild(successAlert);
+              sendInviteBtn.innerHTML = 'Send Invitation';
+              sendInviteBtn.disabled = false;
+            }, 5000);
+          }, 1500);
+        });
+      }
+    });
+  </script>
+</body>
+</html> 

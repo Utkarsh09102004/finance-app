@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Setup Your Workspace - FinSync</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="img/favicon.png">
+  <style>
+    .setup-option {
+      border: 2px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+      margin-bottom: var(--space-md);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .setup-option:hover {
+      border-color: var(--primary-light);
+      background-color: rgba(67, 97, 238, 0.02);
+    }
+    
+    .setup-option.active {
+      border-color: var(--primary);
+      background-color: rgba(67, 97, 238, 0.05);
+    }
+    
+    .setup-option-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: var(--space-sm);
+    }
+    
+    .setup-option-radio {
+      margin-right: var(--space-md);
+      width: 20px;
+      height: 20px;
+      accent-color: var(--primary);
+    }
+    
+    .setup-option-title {
+      font-weight: 600;
+      font-size: 1rem;
+      margin: 0;
+    }
+    
+    .setup-option-description {
+      margin: 0 0 0 34px;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+    
+    .setup-form {
+      margin-top: var(--space-xl);
+      display: none;
+    }
+    
+    .setup-form.active {
+      display: block;
+    }
+  </style>
+</head>
+<body style="background-color: var(--bg-light);">
+  <div style="min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: var(--space-lg);">
+    <div class="card" style="width: 100%; max-width: 550px; padding: var(--space-xl);">
+      <div style="text-align: center; margin-bottom: var(--space-xl);">
+        <span style="font-size: 2rem; font-weight: 700; color: var(--primary);">Fin</span><span style="font-size: 2rem; font-weight: 700; color: var(--accent);">Sync</span>
+      </div>
+      
+      <h1 style="font-size: 1.5rem; margin-bottom: var(--space-md); font-weight: 600; text-align: center;">Set Up Your Workspace</h1>
+      <p style="color: var(--text-secondary); margin-bottom: var(--space-xl); text-align: center;">
+        How would you like to use FinSync? Choose one of the options below.
+      </p>
+      
+      <!-- Setup Options -->
+      <div class="setup-options">
+        <!-- Create Organization Option -->
+        <div class="setup-option active" data-form="create-org-form">
+          <div class="setup-option-header">
+            <input type="radio" name="setup-type" class="setup-option-radio" checked>
+            <h3 class="setup-option-title">Create a new organization</h3>
+          </div>
+          <p class="setup-option-description">
+            Set up a workspace for your company that you can invite team members to join.
+          </p>
+        </div>
+        
+        <!-- Individual Option -->
+        <div class="setup-option" data-form="individual-form">
+          <div class="setup-option-header">
+            <input type="radio" name="setup-type" class="setup-option-radio">
+            <h3 class="setup-option-title">Use as an individual</h3>
+          </div>
+          <p class="setup-option-description">
+            Set up a personal workspace for your own financial data.
+          </p>
+        </div>
+        
+        <!-- Join Organization Option -->
+        <div class="setup-option" data-form="join-org-form">
+          <div class="setup-option-header">
+            <input type="radio" name="setup-type" class="setup-option-radio">
+            <h3 class="setup-option-title">Join an existing organization</h3>
+          </div>
+          <p class="setup-option-description">
+            Use an invite code to join an organization you've been invited to.
+          </p>
+        </div>
+      </div>
+      
+      <!-- Create Organization Form -->
+      <form class="setup-form active" id="create-org-form" style="text-align: left;">
+        <div class="form-group">
+          <label for="organizationName" class="form-label">Organization Name</label>
+          <input type="text" id="organizationName" class="form-control" placeholder="My Company" required>
+          <p style="color: var(--text-light); font-size: 0.875rem; margin-top: var(--space-xs);">
+            This will be the name associated with your team and billing.
+          </p>
+        </div>
+        
+        <div style="margin-top: var(--space-xl);">
+          <button type="button" onclick="saveOrgName()" class="btn btn-primary save-org-btn" style="width: 100%;">Continue</button>
+        </div>
+      </form>
+      
+      <!-- Individual Form -->
+      <form class="setup-form" id="individual-form" style="text-align: left;">
+        <div class="form-group">
+          <label for="individualName" class="form-label">Your Workspace Name</label>
+          <input type="text" id="individualName" class="form-control" placeholder="My Personal Workspace" required>
+          <p style="color: var(--text-light); font-size: 0.875rem; margin-top: var(--space-xs);">
+            This will be the name of your personal workspace. You can join an organization later if needed.
+          </p>
+        </div>
+        
+        <div style="margin-top: var(--space-xl);">
+          <button type="button" onclick="saveIndividualSetup()" class="btn btn-primary save-individual-btn" style="width: 100%;">Continue</button>
+        </div>
+      </form>
+      
+      <!-- Join Organization Form -->
+      <form class="setup-form" id="join-org-form" style="text-align: left;">
+        <div class="form-group">
+          <label for="inviteCode" class="form-label">Invite Code</label>
+          <input type="text" id="inviteCode" class="form-control" placeholder="Enter your invite code" required>
+          <p style="color: var(--text-light); font-size: 0.875rem; margin-top: var(--space-xs);">
+            Enter the invite code sent to you by your organization admin.
+          </p>
+        </div>
+        
+        <div style="margin-top: var(--space-xl);">
+          <button type="button" onclick="joinOrganization()" class="btn btn-primary join-org-btn" style="width: 100%;">Continue</button>
+        </div>
+      </form>
+      
+      <!-- Setup Progress -->
+      <div style="margin-top: var(--space-xxl); display: flex; justify-content: center;">
+        <div style="display: flex; align-items: center;">
+          <div style="width: 24px; height: 24px; border-radius: 50%; background-color: var(--success); color: white; display: flex; align-items: center; justify-content: center; font-size: 0.75rem;">
+            <i class="fas fa-check"></i>
+          </div>
+          <div style="width: 50px; height: 2px; background-color: var(--success);"></div>
+          <div style="width: 24px; height: 24px; border-radius: 50%; background-color: var(--primary); color: white; display: flex; align-items: center; justify-content: center; font-size: 0.75rem;">
+            2
+          </div>
+          <div style="width: 50px; height: 2px; background-color: var(--border-light);"></div>
+          <div style="width: 24px; height: 24px; border-radius: 50%; background-color: var(--border-light); color: var(--text-secondary); display: flex; align-items: center; justify-content: center; font-size: 0.75rem;">
+            3
+          </div>
+        </div>
+      </div>
+      
+      <div style="margin-top: var(--space-md); display: flex; justify-content: center; font-size: 0.75rem; color: var(--text-light);">
+        <div style="text-align: center; width: 74px;">Account</div>
+        <div style="text-align: center; width: 74px;">Workspace</div>
+        <div style="text-align: center; width: 74px;">Integration</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Setup option selection
+      const setupOptions = document.querySelectorAll('.setup-option');
+      const setupForms = document.querySelectorAll('.setup-form');
+      const radioButtons = document.querySelectorAll('.setup-option-radio');
+      
+      setupOptions.forEach(option => {
+        option.addEventListener('click', () => {
+          // Update active option
+          setupOptions.forEach(opt => opt.classList.remove('active'));
+          option.classList.add('active');
+          
+          // Update radio selection
+          const radio = option.querySelector('.setup-option-radio');
+          radioButtons.forEach(rb => rb.checked = false);
+          radio.checked = true;
+          
+          // Show corresponding form
+          const formId = option.dataset.form;
+          setupForms.forEach(form => {
+            form.classList.remove('active');
+            if (form.id === formId) {
+              form.classList.add('active');
+            }
+          });
+        });
+      });
+    });
+
+    // Create organization function
+    function saveOrgName() {
+      const saveButton = document.querySelector('.save-org-btn');
+      const orgNameInput = document.querySelector('#organizationName');
+      
+      if (saveButton && orgNameInput) {
+        const orgName = orgNameInput.value.trim();
+        
+        if (orgName) {
+          saveButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Saving...';
+          
+          // Simulate saving process
+          setTimeout(() => {
+            saveButton.innerHTML = 'Saved';
+            
+            // Show success message
+            const successAlert = document.createElement('div');
+            successAlert.classList.add('alert', 'alert-success', 'mt-3');
+            successAlert.textContent = `Organization "${orgName}" created successfully!`;
+            saveButton.parentNode.appendChild(successAlert);
+            
+            // Redirect to integrations page for first-time setup
+            setTimeout(() => {
+              window.location.href = 'integrations.html?new=true&type=org';
+            }, 1500);
+          }, 1000);
+        }
+      }
+    }
+    
+    // Individual setup function
+    function saveIndividualSetup() {
+      const saveButton = document.querySelector('.save-individual-btn');
+      const nameInput = document.querySelector('#individualName');
+      
+      if (saveButton && nameInput) {
+        const name = nameInput.value.trim();
+        
+        if (name) {
+          saveButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Saving...';
+          
+          // Simulate saving process
+          setTimeout(() => {
+            saveButton.innerHTML = 'Saved';
+            
+            // Show success message
+            const successAlert = document.createElement('div');
+            successAlert.classList.add('alert', 'alert-success', 'mt-3');
+            successAlert.textContent = `Personal workspace "${name}" created successfully!`;
+            saveButton.parentNode.appendChild(successAlert);
+            
+            // Redirect to integrations page for first-time setup
+            setTimeout(() => {
+              window.location.href = 'integrations.html?new=true&type=individual';
+            }, 1500);
+          }, 1000);
+        }
+      }
+    }
+    
+    // Join organization function
+    function joinOrganization() {
+      const joinButton = document.querySelector('.join-org-btn');
+      const inviteCodeInput = document.querySelector('#inviteCode');
+      
+      if (joinButton && inviteCodeInput) {
+        const inviteCode = inviteCodeInput.value.trim();
+        
+        if (inviteCode) {
+          joinButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Verifying...';
+          
+          // Simulate verification process
+          setTimeout(() => {
+            // For demo purposes, any code is valid
+            joinButton.innerHTML = 'Verified';
+            
+            // Show success message
+            const successAlert = document.createElement('div');
+            successAlert.classList.add('alert', 'alert-success', 'mt-3');
+            successAlert.textContent = `Successfully joined "Acme Inc." organization!`;
+            joinButton.parentNode.appendChild(successAlert);
+            
+            // Redirect to chat page since the organization already has integrations set up
+            setTimeout(() => {
+              window.location.href = 'chat.html?joined=true';
+            }, 1500);
+          }, 1500);
+        }
+      }
+    }
+  </script>
+</body>
+</html> 
