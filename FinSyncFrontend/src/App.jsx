@@ -7,6 +7,11 @@ import Organizations from './pages/Organizations';
 import IntegrationPendingConfig from './pages/IntegrationPendingConfig';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import './styles/variables.css';
+import Pricing from './pages/Pricing';
+import Checkout from './pages/Checkout';
+import PaymentSuccess from './pages/PaymentSuccess';
+import PaymentFailure from './pages/PaymentFailure';
+import Settings from './pages/Settings';
 
 function App() {
   return (
@@ -17,11 +22,19 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           
+          {/* Payment status routes (public - users return from Razorpay) */}
+          <Route path="/payment/success" element={<PaymentSuccess />} />
+          <Route path="/payment/failure" element={<PaymentFailure />} />
+          
           {/* Protected routes */}
           <Route element={<ProtectedRoute />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/organizations" element={<Organizations />} />
             <Route path="/integration-pending-config" element={<IntegrationPendingConfig />} />
+            <Route path="/pricing" element={<Pricing />} />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/settings" element={<Settings />} />
+            <Route path="/settings/:tab" element={<Settings />} />
             {/* Add more protected routes here */}
           </Route>
           

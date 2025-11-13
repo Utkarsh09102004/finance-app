@@ -102,7 +102,7 @@ class SubscriptionPlanSerializer(serializers.ModelSerializer):
             'is_trial',
             'trial_duration_days',
             'price_monthly',
-            'price_annually',
+            'currency',
             'features'
         ]
 

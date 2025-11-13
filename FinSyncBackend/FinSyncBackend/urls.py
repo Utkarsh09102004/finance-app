@@ -25,4 +25,5 @@ urlpatterns = [
     path('api/auth/', include(auth_urls)), # Assuming auth URLs are under /api/auth/
     path('api/organizations/', include(organization_urls)), # Include organization URLs under /api/
     path('api/integrations/', include('FinSyncIntegrations.urls', namespace='integrations')),
+    path('api/billing/', include('FinSyncBilling.urls', namespace='billing')),
 ]

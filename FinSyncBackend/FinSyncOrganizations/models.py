@@ -64,8 +64,8 @@ class SubscriptionPlan(models.Model):
     )
 
     # --- Commercials & Availability ---
-    price_monthly = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
-    price_annually = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    price_monthly = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True, help_text="Monthly price in INR")
+    currency = models.CharField(max_length=3, default='INR', help_text="Currency code")
     features = models.JSONField(default=dict, blank=True, help_text="List or dict of features included.")
     is_available = models.BooleanField(
         default=True,
@@ -180,9 +180,19 @@ class Organization(models.Model):
         help_text="Date the current subscription period ends (due to cancellation)."
     )
 
-    # Optional: Payment provider details
-    # stripe_customer_id = models.CharField(max_length=255, blank=True, null=True, db_index=True)
-    # stripe_subscription_id = models.CharField(max_length=255, blank=True, null=True, db_index=True)
+    # Payment provider details - Razorpay
+    razorpay_customer_id = models.CharField(max_length=255, blank=True, null=True, db_index=True)
+    razorpay_subscription_id = models.CharField(max_length=255, blank=True, null=True, db_index=True)
+    
+    # Payment failure tracking
+    payment_failed_count = models.PositiveIntegerField(default=0, help_text="Number of consecutive payment failures")
+    last_payment_failed_at = models.DateTimeField(null=True, blank=True, help_text="Timestamp of last payment failure")
+    grace_period_ends_at = models.DateTimeField(null=True, blank=True, help_text="Grace period end for failed payments")
+    
+    # Billing contact info
+    billing_email = models.EmailField(null=True, blank=True, help_text="Email for billing notifications (defaults to owner email)")
+    billing_name = models.CharField(max_length=255, null=True, blank=True, help_text="Name for billing purposes")
+    billing_phone = models.CharField(max_length=20, null=True, blank=True, help_text="Phone number for billing")
 
     def __str__(self):
         plan_name = self.subscription_plan.get_name_display() if self.subscription_plan else "No Plan"

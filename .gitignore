@@ -1,0 +1,146 @@
+# Python/Django
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+*.egg-info/
+*.egg
+dist/
+build/
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+*.log
+db.sqlite3
+*.sqlite
+.env
+.env.*
+staticfiles/
+media/
+local_settings.py
+*.pot
+*.mo
+
+# Node.js/React
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+.npm
+.yarn
+dist/
+build/
+*.local
+.pnpm-store/
+
+# IDE and Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*.swn
+*.sublime-project
+*.sublime-workspace
+.project
+.classpath
+*.iml
+.settings/
+
+# OS Specific
+.DS_Store
+Thumbs.db
+Desktop.ini
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+.AppleDouble
+.LSOverride
+
+# Testing and Coverage
+coverage/
+.nyc_output/
+*.cover
+.hypothesis/
+.coverage.*
+coverage.xml
+*.lcov
+
+# Docker
+*.pid
+docker-compose.override.yml
+
+# Backup and Temporary
+*~
+*.bak
+*.tmp
+*.temp
+*.orig
+*.cache
+*.swp.backup
+
+# Security Sensitive
+*.key
+*.pem
+secrets/
+*.secret
+*.p12
+*.pfx
+*.crt
+*.csr
+
+# Python Virtual Environments
+pythonenv*
+Pipfile.lock
+
+# Django stuff
+*.mo
+instance/
+.webassets-cache
+.scrapy
+docs/_build/
+target/
+celerybeat-schedule
+celerybeat.pid
+*.sage.py
+
+# Flask stuff
+instance/
+.webassets-cache
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# Additional project specific
+testingapikey.py
+deleted_custom_users.py

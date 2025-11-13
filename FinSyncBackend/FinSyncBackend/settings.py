@@ -66,7 +66,8 @@ THIRD_PARTY_APPS = [
 USER_DEFINED_APPS = [
     'FinSyncAuth',
     'FinSyncOrganizations',
-    'FinSyncIntegrations'
+    'FinSyncIntegrations',
+    'FinSyncBilling'
 ]
 
 INSTALLED_APPS = USER_DEFINED_APPS + SYSTEM_APPS + THIRD_PARTY_APPS 
@@ -255,11 +256,11 @@ AUTHENTICATION_BACKENDS = (
 
 SITE_ID = 1 # Required by django.contrib.sites
 
-# ACCOUNT_AUTHENTICATION_METHOD = 'email' # Use email for login
-# ACCOUNT_USERNAME_REQUIRED = False
-# ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_LOGIN_METHODS = ['email']
-ACCOUNT_SIGNUP_FIELDS = ['first_name*', 'last_name*', 'email*', 'password1*', 'password2*']  
+ACCOUNT_AUTHENTICATION_METHOD = 'email' # Use email for login
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_EMAIL_REQUIRED = True
+# ACCOUNT_LOGIN_METHODS = ['email']  # This is not a valid allauth setting
+# ACCOUNT_SIGNUP_FIELDS = ['first_name*', 'last_name*', 'email*', 'password1*', 'password2*']  # This is not a valid allauth setting
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory' # Or 'optional' or 'none'
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True # Allow clicking link to confirm
 ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
@@ -332,6 +333,10 @@ FRONTEND_INTEGRATION_SUCCESS_URL = os.getenv('FRONTEND_INTEGRATION_SUCCESS_URL')
 FRONTEND_INTEGRATION_FAILURE_URL = os.getenv('FRONTEND_INTEGRATION_FAILURE_URL')
 FRONTEND_INTEGRATION_PENDING_CONFIG_URL = os.getenv('FRONTEND_INTEGRATION_PENDING_CONFIG_URL')
 
+# Payment redirect URLs
+FRONTEND_PAYMENT_SUCCESS_URL = os.getenv('FRONTEND_PAYMENT_SUCCESS_URL')
+FRONTEND_PAYMENT_FAILURE_URL = os.getenv('FRONTEND_PAYMENT_FAILURE_URL')
+
 # Logging Configuration - Basic example, you might want to expand this
 LOGGING = {
     'version': 1,
@@ -379,3 +384,29 @@ SESSION_COOKIE_SECURE = False  # Set to True in HTTPS environments
 SESSION_COOKIE_HTTPONLY = False  # Allow JavaScript to access session cookie for OAuth
 SESSION_COOKIE_SAMESITE = None  # Allow cross-site cookies for OAuth redirects
 SESSION_SAVE_EVERY_REQUEST = True  # Keep the session alive on every request
+
+# --- Razorpay Settings ---
+RAZORPAY_KEY_ID = os.getenv('RAZORPAY_KEY_ID', '')
+RAZORPAY_KEY_SECRET = os.getenv('RAZORPAY_KEY_SECRET', '')
+RAZORPAY_WEBHOOK_SECRET = os.getenv('RAZORPAY_WEBHOOK_SECRET', '')
+RAZORPAY_TEST_MODE = os.getenv('RAZORPAY_TEST_MODE', 'True').lower() == 'true'
+
+# --- Payment & Billing Settings ---
+ENABLE_PAYMENTS = os.getenv('ENABLE_PAYMENTS', 'False').lower() == 'true'
+PAYMENT_RETRY_ATTEMPTS = int(os.getenv('PAYMENT_RETRY_ATTEMPTS', '3'))
+PAYMENT_RETRY_INTERVAL_HOURS = int(os.getenv('PAYMENT_RETRY_INTERVAL_HOURS', '24'))
+PAYMENT_GRACE_PERIOD_DAYS = int(os.getenv('PAYMENT_GRACE_PERIOD_DAYS', '7'))
+
+# --- Subscription Plan Pricing (Placeholder values in INR) ---
+SUBSCRIPTION_PRICING = {
+    'individual': {
+        'monthly': Decimal('299.00'),
+        'max_users': 1,
+        'max_integrations': 3
+    },
+    'team': {
+        'monthly': Decimal('999.00'),
+        'max_users': 10,
+        'max_integrations': 5
+    }
+}
