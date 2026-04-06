@@ -26,4 +26,5 @@ urlpatterns = [
     path('api/organizations/', include(organization_urls)), # Include organization URLs under /api/
     path('api/integrations/', include('FinSyncIntegrations.urls', namespace='integrations')),
     path('api/billing/', include('FinSyncBilling.urls', namespace='billing')),
+    path('api/chat/', include('FinSyncChat.urls')),
 ]

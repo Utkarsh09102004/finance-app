@@ -67,7 +67,8 @@ USER_DEFINED_APPS = [
     'FinSyncAuth',
     'FinSyncOrganizations',
     'FinSyncIntegrations',
-    'FinSyncBilling'
+    'FinSyncBilling',
+    'FinSyncChat'
 ]
 
 INSTALLED_APPS = USER_DEFINED_APPS + SYSTEM_APPS + THIRD_PARTY_APPS 
@@ -396,6 +397,11 @@ ENABLE_PAYMENTS = os.getenv('ENABLE_PAYMENTS', 'False').lower() == 'true'
 PAYMENT_RETRY_ATTEMPTS = int(os.getenv('PAYMENT_RETRY_ATTEMPTS', '3'))
 PAYMENT_RETRY_INTERVAL_HOURS = int(os.getenv('PAYMENT_RETRY_INTERVAL_HOURS', '24'))
 PAYMENT_GRACE_PERIOD_DAYS = int(os.getenv('PAYMENT_GRACE_PERIOD_DAYS', '7'))
+
+# --- AI/LLM Settings ---
+OPENROUTER_API_KEY = os.getenv('OPENROUTER_API_KEY', '')
+OPENAI_API_KEY = os.getenv('OPENAI_API_KEY', '')
+ANTHROPIC_API_KEY = os.getenv('ANTHROPIC_API_KEY', '')
 
 # --- Subscription Plan Pricing (Placeholder values in INR) ---
 SUBSCRIPTION_PRICING = {

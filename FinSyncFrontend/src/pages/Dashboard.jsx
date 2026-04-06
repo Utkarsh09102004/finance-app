@@ -1,15 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Sidebar } from '../components/sidebar';
-import { Button } from "../components/ui/button";
-import { Menu } from 'lucide-react';
 import { useWindowWidth } from "@react-hook/window-size";
 import { cn } from "../lib/utils";
 import { PlaceholdersAndVanishInput } from "../components/ui/placeholders-and-vanish-input";
 import { motion, AnimatePresence } from "framer-motion";
 import UserMessageBubble from '../components/chat/UserMessageBubble';
 import AIMessageBubble from '../components/chat/AIMessageBubble';
+import ChartStudio from '../components/chat/ChartStudio';
+import SourcePanel from '../components/sources/SourcePanel';
 import { useChat } from '../hooks/useChat';
+import { Loader2 } from 'lucide-react';
 
 const initialPlaceholders = [
     "What are my upcoming bills?",
@@ -43,10 +44,21 @@ const Dashboard = () => {
     const {
         messages,
         chatStarted,
+        conversationId,
+        conversationTitle,
+        isSending,
+        isMessagesLoading,
+        error,
+        conversationHistory,
+        isHistoryLoading,
+        conversationSources,
         handleInputChange,
         handleSubmit,
         handlePromptClick,
+        startNewConversation,
+        loadConversation,
     } = useChat();
+    const [showSources, setShowSources] = useState(false);
 
     const messagesEndRef = useRef(null);
 
@@ -75,7 +87,16 @@ const Dashboard = () => {
 
     return (
         <div className="flex h-screen bg-background">
-            <Sidebar isCollapsed={isSidebarCollapsed} onCollapseChange={handleSidebarToggle} bgColor="#f9f9f9" />
+            <Sidebar
+                isCollapsed={isSidebarCollapsed}
+                onCollapseChange={handleSidebarToggle}
+                bgColor="#f9f9f9"
+                conversations={conversationHistory}
+                conversationsLoading={isHistoryLoading}
+                onSelectConversation={loadConversation}
+                activeConversationId={conversationId}
+                onNewChat={startNewConversation}
+            />
             <main 
                 className={cn(
                     "flex-1 flex flex-col overflow-hidden transition-all duration-300 ease-in-out",
@@ -138,11 +159,30 @@ const Dashboard = () => {
                     </AnimatePresence>
 
                     {/* Active Chat View - Appears after first message */}
-                    <div className={`flex flex-col w-full h-full ${chatStarted ? 'opacity-100 visible' : 'opacity-0 invisible hidden'}`}> 
+                    <div className={`flex flex-col w-full h-full ${chatStarted ? 'opacity-100 visible' : 'opacity-0 invisible hidden'}`}>
+                        <div className="px-10 sm:px-8 lg:px-24 py-4 border-b border-muted/40 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+                            <div>
+                                <p className="text-xs uppercase tracking-wide text-muted-foreground">Conversation</p>
+                                <h2 className="text-xl font-semibold text-foreground truncate">
+                                    {conversationTitle || 'New Conversation'}
+                                </h2>
+                            </div>
+                            <button
+                                className="inline-flex items-center justify-center rounded-full border px-4 py-2 text-sm font-medium text-foreground hover:bg-muted"
+                                onClick={() => setShowSources((prev) => !prev)}
+                            >
+                                Sources ({conversationSources.length})
+                            </button>
+                        </div>
+                        {showSources && (
+                            <div className="px-10 sm:px-8 lg:px-24 py-4 border-b border-muted/30 bg-muted/20">
+                                <SourcePanel sources={conversationSources} />
+                            </div>
+                        )}
                         {/* Message Log Area */}
                         <motion.div
                             layout
-                            className="flex-grow overflow-y-auto py-4 px-10 sm:py-6 sm:px-8 lg:px-24 space-y-6 bg-white"
+                            className="relative flex-grow overflow-y-auto py-4 px-10 sm:py-6 sm:px-8 lg:px-24 space-y-6 bg-white"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: chatStarted ? 1 : 0 }}
                             transition={{ delay: chatStarted ? 0.3 : 0, duration: 0.5 }}
@@ -156,15 +196,41 @@ const Dashboard = () => {
                                     exit={{ opacity:0, y: -5}}
                                     transition={{ type: "spring", stiffness: 300, damping: 30 }}
                                 >
-                                    {msg.sender === 'user' ? (
+                                    {msg.type === 'chart_group' ? (
+                                        <div
+                                            className={`mt-4 grid grid-cols-1 gap-4 ${
+                                                msg.charts.length >= 3
+                                                    ? 'sm:grid-cols-2 xl:grid-cols-3'
+                                                    : msg.charts.length === 2
+                                                        ? 'sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2'
+                                                        : ''
+                                            }`}
+                                        >
+                                            {msg.charts.map((chart, idx) => (
+                                                <ChartStudio key={chart.id || `chart-${idx}`} spec={chart} />
+                                            ))}
+                                        </div>
+                                    ) : msg.sender === 'user' ? (
                                         <UserMessageBubble message={msg} />
                                     ) : (
                                         <AIMessageBubble message={msg} />
                                     )}
                                 </motion.div>
                             ))}
+                            {isMessagesLoading && (
+                                <div className="absolute inset-0 flex items-center justify-center bg-white/80">
+                                    <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+                                </div>
+                            )}
                             <div ref={messagesEndRef} />
                         </motion.div>
+
+                        {isSending && (
+                            <div className="flex items-center gap-2 text-sm text-muted-foreground px-10 sm:px-8 lg:px-24 pb-2">
+                                <Loader2 className="h-4 w-4 animate-spin" />
+                                FinSync is thinking...
+                            </div>
+                        )}
 
                         {/* Chat Input Area - Fixed at the bottom */}
                         <motion.div
@@ -179,6 +245,9 @@ const Dashboard = () => {
                                     onChange={handleInputChange}
                                     onSubmit={handleSubmit}
                                 />
+                                {error && (
+                                    <p className="text-sm text-red-600 mt-3 text-center">{error}</p>
+                                )}
                             </div>
                         </motion.div>
                     </div>
